@@ -7,26 +7,8 @@ const spotifyApi = new SpotifyWebApi();
 export default function Likedtracks() {
   const [likedtracks, setMyLikedTracks] = useState([]);
 
-  const [offset, setOffset] = useState(0);
-  const [topArtists, setTopArtists] = useState([]);
   const [loading, setLoading] = useState(false);
-  // const getSavedTracks = (offlimit) => {
-  //   // Get tracks in the signed in user's Your Music library
-  //   spotifyApi
-  //     .getMySavedTracks({
-  //       limit: 50,
-  //       offset: offlimit,
-  //     })
-  //     .then(
-  //       function (data) {
-  //         setMyLikedTracks(data.items);
-  //         console.log('saved tracks!', data);
-  //       },
-  //       function (err) {
-  //         console.log('Something went wrong!', err);
-  //       }
-  //     );
-  // };
+
   useEffect(() => {
     const getSavedTracks = async () => {
       let offset = 0;
@@ -55,7 +37,7 @@ export default function Likedtracks() {
           data.items.forEach((item) => {
             savedTracks.push(item);
           });
-          offset += 50; // increment offset by 50
+          offset += 50; // increment offset by 50 to get next page of results
         } catch (error) {
           console.log(error);
         }
@@ -77,26 +59,10 @@ export default function Likedtracks() {
   if (loading) {
     return <div>Loading...</div>;
   }
-  // const handleChange = () => {
-  //   const nextArtist = topArtists.shift();
-  //   topArtists.push(nextArtist);
-  //   setTopArtists(topArtists);
-  //   let next = offset;
-  //   next += 50;
-  //   setOffset(next);
-  //   getSavedTracks(offset);
-  // };
 
   return (
     <div>
-      {/* <button
-        // style={{ backgroundColor: 'darkred', margin: 0, padding: '10px' }}
-        onClick={getSavedTracks}
-      >
-        {' '}
-        {'Next'} ⏭️
-      </button> */}
-
+      <h2>Tracks: {likedtracks.length}</h2>
       {likedtracks &&
         likedtracks.map((track, i) => (
           <>
@@ -116,9 +82,6 @@ export default function Likedtracks() {
                   borderRadius: '50%',
                 }}
               />
-              {/* <audio controls style={{ width: '90%', marginLeft: '5vw' }}>
-                <source src={track.track.preview_url} type="audio/mp3" />
-              </audio> */}
             </>
 
             <Spotify

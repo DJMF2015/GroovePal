@@ -19,7 +19,6 @@ const useTopArtists = () => {
     };
     getTopArtists();
   }, []);
-  console.log({ genre });
   return { genre };
 };
 export default useTopArtists;

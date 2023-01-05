@@ -6,18 +6,21 @@ import Artists from '../pages/Artists';
 import GenreFilterButton from '../components/FilterButton';
 import React, { useState, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
-import PlaylistWidget from '../components/PlaylistButton';
 import Playlists from './Playlists';
 import Spotify from '../utils/Spotify';
 import useTopArtists from '../hooks/useTopArtists';
-// import SpotifyWebApi from 'spotify-web-api-js';
-// const spotifyApi = new SpotifyWebApi();
+import SpotifyWebApi from 'spotify-web-api-js';
+import SpotifyPreview from '../utils/SpotifyPreview';
+const spotifyApi = new SpotifyWebApi();
 
 const PlayList = () => {
   const [searchKey, setSearchKey] = useState();
   const [artists, setArtists] = useState([]);
+  const [tracks, setTracks] = useState([]);
+  const [playlist, setPlaylist] = useState([]);
   const [loading, setLoading] = useState(false);
   const { spotifyToken, loggedIn, profile } = useAuth();
+  const [getRecent, setRecentlyPlayed] = useState([]);
   const { genre } = useTopArtists();
 
   const searchArtists = async (e) => {
@@ -29,36 +32,72 @@ const PlayList = () => {
       },
       params: {
         q: searchKey,
-        type: 'playlist',
+        type: 'track,artist,playlist',
       },
     });
     console.log('data', data);
-    setArtists(data.playlists.items);
-
+    setArtists(data.artists.items);
+    // setPlaylist(data.playlist.items);
     setLoading(false);
   };
 
   const renderGenre = (e) => {
     setSearchKey(e);
   };
+  const render = (e) => {
+    setSearchKey(e);
+  };
+  useEffect(() => {
+    const getRecentlyPlayed = () => {
+      // Get Current User's Recently Played Tracks
+      spotifyApi
+        .getMyRecentlyPlayedTracks({
+          limit: 50,
+          time_range: 'short_term',
+        })
+        .then(
+          function (data) {
+            // Output items
+            console.log('Your 20 most recently played tracks are:');
 
+            setRecentlyPlayed(data.items);
+          },
+          function (err) {
+            console.log('Something went wrong!', err);
+          }
+        );
+    };
+    getRecentlyPlayed();
+  }, []);
+
+  console.log({ getRecent });
   return (
     <div className="background">
-      <br></br>
-      {!loggedIn && <a href="http://localhost:8888">Login to Spotify</a>}
-      {loggedIn && (
-        <>
-          <h3> {profile.display_name} profile </h3>
-
-          <GenreFilterButton
-            genre={genre}
-            renderGenre={renderGenre}
-            searchArtists={searchArtists}
-          />
-        </>
+      {!spotifyToken ? (
+        <a href="http://localhost:8888/login">Log in to Spotify</a>
+      ) : (
+        <h3> {profile.display_name} profile </h3>
       )}
-
-      {<Artists artists={artists} />}
+      {/* <button onClick={getRecentlyPlayed}>Recently Played</button> */}
+      {/* {loading && profile && <UserProfile profile={profile} />} */}
+      <>
+        <GenreFilterButton
+          genre={genre}
+          renderGenre={renderGenre}
+          render={render}
+          searchArtists={searchArtists}
+        />
+        <Artists artists={artists} />
+      </>
+      <h3>Recently Played</h3>
+      {getRecent &&
+        getRecent.map((track, i) => (
+          <>
+            <p>{track.track.name}</p>
+            {/* <img src={track.track.album.images[2].url} /> */}
+            <SpotifyPreview link={track.track.external_urls.spotify} />
+          </>
+        ))}
     </div>
   );
 };

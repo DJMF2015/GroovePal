@@ -27,7 +27,6 @@ const Spotify = ({
         loading={loading}
         width={width}
         height={height}
-        frameBorder={frameBorder}
         allow={allow}
         style={{
           borderRadius: 8,

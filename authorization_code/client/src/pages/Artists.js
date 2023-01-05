@@ -1,8 +1,8 @@
 import React from 'react';
 import Spotify from '../utils/Spotify';
 export default function Artists(props) {
-  console.log({ props });
   return props.artists
+
     .map((artist, i) => (
       <>
         <div key={artist.id}>

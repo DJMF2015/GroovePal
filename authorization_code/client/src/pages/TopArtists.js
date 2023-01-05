@@ -1,20 +1,20 @@
 import Spotify from '../utils/Spotify';
 import axios from 'axios';
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
 import { Link } from 'react-router-dom';
 import RecommendationsCard from '../components/RecommendationsCard';
-// import ArtistDetailsCard from '../components/ArtistCard';
 const spotifyApi = new SpotifyWebApi();
 
 export default function TopArtists() {
-  const [albums, setAlbums] = useState([]);
   const [access_token, setAccessToken] = useState('');
   const [artist, setArtists] = useState([]);
-  const [recommendations, setSeedforRecommendations] = useState([]);
   const [topArtists, setTopArtists] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [recommendations, setSeedforRecommendations] = useState([]);
   const [profile, setProfile] = useState([]);
   const [artistData, setArtistData] = useState([]);
+  // console.log({ data });
   useEffect(() => {
     const fetchTopArtists = async () => {
       const access_token = spotifyApi.getAccessToken();
@@ -24,6 +24,7 @@ export default function TopArtists() {
         console.log({ data });
         setProfile(data);
       });
+      setLoading(true);
       const response = await axios
         .get('https://api.spotify.com/v1/me/top/artists', {
           headers: {
@@ -40,15 +41,15 @@ export default function TopArtists() {
         });
       const topArtistsId = response.data.items.map((artist) => artist.id);
       const seeds = topArtistsId.slice(0, 5);
+
       setSeedforRecommendations(seeds);
       let topArtists = response.data.items.map((artist) => artist);
       setArtists(topArtists);
       setTopArtists(topArtistsId);
     };
-    console.log({ topArtists });
-    // // Get Recommendations Based on Seeds
 
     fetchTopArtists();
+    setLoading(false);
   }, []);
 
   const getRecommendations = async () => {
@@ -61,9 +62,7 @@ export default function TopArtists() {
       .then(
         function (data) {
           let recommendations = data;
-          // setSeedforRecommendations(recommendations);
           setArtistData(recommendations);
-          console.log({ recommendations });
         },
         function (err) {
           console.log('Something went wrong!', err);
@@ -74,10 +73,9 @@ export default function TopArtists() {
   return (
     <div>
       <h2 style={{ textAlign: 'center' }}>{profile.display_name} Top Artists</h2>
+
       {/* <div style={{ marginLeft: '45vw', position: 'relative' }}></div> */}
-      <button onClick={() => getRecommendations(recommendations)}>
-        Get Recommendations
-      </button>
+      <button onClick={() => getRecommendations()}>Get Suggestions</button>
       {artist
         .map((data, i) => (
           <div
@@ -95,8 +93,8 @@ export default function TopArtists() {
               justifyContent: 'center',
             }}
           >
-            <h2 style={{ color: 'red', marginTop: '4rem', marginLeft: '-1rem' }}>
-              {i + 1}: {data.name} {''}
+            <h2 style={{ color: 'white', marginTop: '4rem', marginLeft: '-1rem' }}>
+              {i + 1} {data.name} {''}
             </h2>
             <img
               style={{
@@ -128,28 +126,12 @@ export default function TopArtists() {
                 <h3 style={{ textAlign: 'right' }}>{data.name} Artist Profile</h3>
               </div>
             </Link>
-            {/* <a
-              style={{
-                color: 'white',
-                textDecoration: 'none',
-                margin: '25px',
-                textAlign: 'center',
-                marginTop: '3rem', 
-                borderRadius: '1rem',
-              }}
-              href={data.external_urls.spotify}
-              rel="noreferrer"
-              target="_blank"
-            >
-              <h3> Artist Profile</h3>
-            </a> */}
           </div>
         ))
-        .slice(0, 20)}
-
+        .slice(0, 50)}
       {''}
-      {/* {recommendationsForUser && <RecommendationsCard tracks={recommendationsForUser} />} */}
-      {/* {artistData && <RecommendationsCard artistData={artistData} />} */}
+
+      {!loading && artistData && <RecommendationsCard artistData={artistData} />}
     </div>
   );
 }

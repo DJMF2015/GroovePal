@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import PlayList from './pages/Playlist';
 import TopTracks from './pages/TopTracks';
 import UserPlaylists from './pages/Playlists';
-import AutomaticPlaylist from './pages/AutomaticPlaylist';
 import ArtistDetailsCard from './components/ArtistCard';
 import Likedtracks from './pages/LikedTracks';
 import TopArtists from './pages/TopArtists';
@@ -22,7 +21,6 @@ function App() {
           <Route path="/saved" element={<Likedtracks />} />
           <Route path="/artists" element={<TopArtists />} />
           <Route path="/artists/:id" element={<ArtistDetailsCard />} />
-          {/* <Route path="/automatic" element={<AutomaticPlaylist />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>

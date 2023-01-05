@@ -31,7 +31,7 @@ const styles = {
     color: 'red',
   },
 };
-const RelatedArtists = () => {};
+
 const ArtistDetailsCard = () => {
   const location = useLocation();
   const { from } = location.state;

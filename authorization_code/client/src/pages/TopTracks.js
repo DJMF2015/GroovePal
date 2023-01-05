@@ -7,34 +7,28 @@ import axios from 'axios';
 const spotifyApi = new SpotifyWebApi();
 
 const TopTracks = () => {
-  const [toptracks, setTopTracks] = useState([]);
   const [preview, setPreview] = useState([]);
   const [data, setData] = useState([]);
-  const [artist, setArtists] = useState([]);
-  const [playlistName, setPlaylistName] = useState(
-    `David's All Time Top Tracks ${TodayDate()} `
-  );
-  // useEffect(() => {
-  //   const handleGetTopTracks = () => {
-  //     spotifyApi.getMyTopTracks({ limit: 50, offset: 49, time_range: 'long_term' }).then(
-  //       function (data) {
-  //         let all = data.items.map((item) => item);
+  const [timeRange, setTimeRange] = useState('long_term');
+  const [timeRangeText, setTimeRangeText] = useState('All Time');
+  const [playlistName, setPlaylistName] = useState(`Top Tracks - ${TodayDate()}`);
 
-  //         setData(all);
-  //       },
-  //       function (err) {
-  //         console.log('Something went wrong!', err);
-  //       }
-  //     );
-  //   };
+  const ToggleTimeRange = () => {
+    if (timeRange === 'long_term') {
+      setTimeRange('medium_term');
+      setTimeRangeText('Last 6 Months');
+    } else if (timeRange === 'medium_term') {
+      setTimeRange('short_term');
+      setTimeRangeText('Last 4 Weeks');
+    } else if (timeRange === 'short_term') {
+      setTimeRange('long_term');
+      setTimeRangeText('All Time');
+    }
+  };
 
-  //   handleGetTopTracks();
-  // }, []);
   useEffect(() => {
     const getTopAllTimeTracks = async () => {
-      let offset = 0;
-
-      const baseUrl = 'https://api.spotify.com/v1/me/top/tracks?time_range=long_term';
+      const baseUrl = `https://api.spotify.com/v1/me/top/tracks?time_range=${timeRange}`;
       const topTracks = [];
       let lastResult = [];
 
@@ -45,61 +39,31 @@ const TopTracks = () => {
           },
           params: {
             limit: 50,
-            offset: offset,
+            offset: 0,
+            time_range: timeRange,
           },
         });
 
-        // setLoading(true);
         const data = await response.data;
         lastResult = data;
         lastResult.items.forEach((item) => {
           topTracks.push(item);
+          setData(topTracks);
         });
-        while (lastResult.next !== null) {
-          offset += 50;
-          getTopAllTimeTracks();
-        }
-
-        // increment offset by 50
       } catch (error) {
         console.log(error);
       }
-      // while (
-      //   lastResult.next !== null &&
-      //   lastResult.next !== undefined &&
-      //   lastResult.next !== '' &&
-      //   offset < 200
-      // );
-      setData(topTracks);
-      // setLoading(false);
     };
     getTopAllTimeTracks();
-  }, []);
+  }, [timeRange]);
 
-  const getRecentlyPlayed = () => {
-    // Get Current User's Recently Played Tracks
-    spotifyApi
-      .getMyRecentlyPlayedTracks({
-        limit: 20,
-      })
-      .then(
-        function (data) {
-          // Output items
-          console.log('Your 20 most recently played tracks are:');
-          let all = data;
-          console.log({ all });
-        },
-        function (err) {
-          console.log('Something went wrong!', err);
-        }
-      );
-  };
   const createTopTracksPlaylist = async () => {
     let me = await spotifyApi.getMe();
+
     await spotifyApi.createPlaylist(me.id, {
       name: playlistName,
       public: true,
-      description: 'All Time Top Tracks',
+      description: `Top Tracks ${timeRangeText} `,
     });
 
     const playlists = await spotifyApi.getUserPlaylists(me.id);
@@ -118,7 +82,20 @@ const TopTracks = () => {
       <div className="background">
         <h2>All Time Top Tracks</h2>
         <button onClick={createTopTracksPlaylist}>Create Top Tracks Playlist</button>
-        <button onClick={getRecentlyPlayed}>Recently Played</button>
+        <div>
+          <button
+            style={{
+              backgroundColor: 'black',
+              color: 'white',
+              border: '2px solid white',
+              borderRadius: '10rem',
+              padding: '1rem',
+            }}
+            onClick={ToggleTimeRange}
+          >
+            {timeRangeText}
+          </button>
+        </div>
         {data.map((track, i) => {
           return (
             <>
