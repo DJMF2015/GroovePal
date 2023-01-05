@@ -41,7 +41,6 @@ export default function TopArtists() {
         });
       const topArtistsId = response.data.items.map((artist) => artist.id);
       const seeds = topArtistsId.slice(0, 5);
-
       setSeedforRecommendations(seeds);
       let topArtists = response.data.items.map((artist) => artist);
       setArtists(topArtists);
@@ -58,6 +57,7 @@ export default function TopArtists() {
         min_energy: 0.5,
         seed_artists: recommendations,
         min_popularity: 30,
+        min_instrumentalness: 0.5,
       })
       .then(
         function (data) {

@@ -37,7 +37,7 @@ export default function GenreFilterButton(props) {
                 type="submit"
                 onClick={(e) => props.renderGenre(e.target.value)}
               >
-                {`${index[0] + 1}: ${option[0].charAt(0).toUpperCase()}${option[0].slice(
+                {`${index + 1}: ${option[0].charAt(0).toUpperCase()}${option[0].slice(
                   1
                 )}`}
               </button>

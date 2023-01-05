@@ -7,24 +7,11 @@ import axios from 'axios';
 const spotifyApi = new SpotifyWebApi();
 
 const TopTracks = () => {
-  const [preview, setPreview] = useState([]);
+  // const [preview, setPreview] = useState([]);
   const [data, setData] = useState([]);
   const [timeRange, setTimeRange] = useState('long_term');
-  const [timeRangeText, setTimeRangeText] = useState('All Time');
+  const [timeRangeText, setTimeRangeText] = useState('');
   const [playlistName, setPlaylistName] = useState(`Top Tracks - ${TodayDate()}`);
-
-  const ToggleTimeRange = () => {
-    if (timeRange === 'long_term') {
-      setTimeRange('medium_term');
-      setTimeRangeText('Last 6 Months');
-    } else if (timeRange === 'medium_term') {
-      setTimeRange('short_term');
-      setTimeRangeText('Last 4 Weeks');
-    } else if (timeRange === 'short_term') {
-      setTimeRange('long_term');
-      setTimeRangeText('All Time');
-    }
-  };
 
   useEffect(() => {
     const getTopAllTimeTracks = async () => {
@@ -38,7 +25,7 @@ const TopTracks = () => {
             Authorization: `Bearer ${spotifyApi.getAccessToken()}`,
           },
           params: {
-            limit: 50,
+            limit: 30,
             offset: 0,
             time_range: timeRange,
           },
@@ -87,13 +74,42 @@ const TopTracks = () => {
             style={{
               backgroundColor: 'black',
               color: 'white',
+              margin: '0 1rem',
+              marginTop: '1rem',
               border: '2px solid white',
               borderRadius: '10rem',
               padding: '1rem',
             }}
-            onClick={ToggleTimeRange}
+            onClick={() => setTimeRange('long_term')}
           >
             {timeRangeText}
+            All Time
+          </button>
+          <button
+            style={{
+              backgroundColor: 'black',
+              color: 'white',
+              margin: '0 1rem',
+              border: '2px solid white',
+              borderRadius: '10rem',
+              padding: '1rem',
+            }}
+            onClick={() => setTimeRange('medium_term')}
+          >
+            {timeRangeText} Last 6 Months
+          </button>
+          <button
+            style={{
+              backgroundColor: 'black',
+              margin: '0 1rem',
+              color: 'white',
+              border: '2px solid white',
+              borderRadius: '10rem',
+              padding: '1rem',
+            }}
+            onClick={() => setTimeRange('short_term')}
+          >
+            {timeRangeText} Last 4 Weeks
           </button>
         </div>
         {data.map((track, i) => {

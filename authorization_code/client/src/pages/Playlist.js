@@ -52,7 +52,7 @@ const PlayList = () => {
       // Get Current User's Recently Played Tracks
       spotifyApi
         .getMyRecentlyPlayedTracks({
-          limit: 50,
+          limit: 30,
           time_range: 'short_term',
         })
         .then(
@@ -69,8 +69,6 @@ const PlayList = () => {
     };
     getRecentlyPlayed();
   }, []);
-
-  console.log({ getRecent });
   return (
     <div className="background">
       {!spotifyToken ? (
@@ -94,10 +92,10 @@ const PlayList = () => {
         getRecent.map((track, i) => (
           <>
             <p>{track.track.name}</p>
-            {/* <img src={track.track.album.images[2].url} /> */}
             <SpotifyPreview link={track.track.external_urls.spotify} />
           </>
         ))}
+      ;
     </div>
   );
 };

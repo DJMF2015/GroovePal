@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import axios from 'axios';
 import Spotify from '../utils/Spotify';
 import SpotifyWebApi from 'spotify-web-api-js';
+import RelatedArtist from './RelatedArtist';
 const spotifyApi = new SpotifyWebApi();
 
 const styles = {
@@ -33,8 +35,27 @@ const styles = {
 };
 
 const ArtistDetailsCard = () => {
+  const [relatedArtist, setRelatedArtist] = useState([]);
   const location = useLocation();
   const { from } = location.state;
+  const artistId = from.id;
+  console.log({ artistId });
+  useEffect(() => {
+    const getRelatedArtists = async (artistId) => {
+      const { data } = await axios.get(
+        `https://api.spotify.com/v1/artists/${artistId}/related-artists`,
+        {
+          headers: {
+            Authorization: `Bearer ${spotifyApi.getAccessToken()}`,
+          },
+        }
+      );
+      const response = await data;
+      console.log({ response });
+      setRelatedArtist(response.artists);
+    };
+    getRelatedArtists(artistId);
+  }, []);
   return (
     <>
       <div style={styles.div}>
@@ -50,6 +71,8 @@ const ArtistDetailsCard = () => {
         <h2>{from.popularity}</h2>
         <Spotify link={from.external_urls.spotify} style={styles.link} />
       </div>
+      {relatedArtist &&
+        relatedArtist.map((artist, i) => <RelatedArtist artist={artist} />)}
     </>
   );
 };
