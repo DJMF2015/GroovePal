@@ -1,17 +1,7 @@
 .App {
   text-align: center;
 }
-
-/* .App-header {
-  background-color: ghostwhite;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-} */
+ 
  ul {
    list-style-type: none;
    margin: 0;
@@ -62,11 +52,7 @@ button{
     border-radius: 50px;
     padding: 1rem;
 }
- /* button:hover { 
-    background-color: rgb(253, 251, 251);
-    padding: 3px;
-    border: 2px solid red;
- } */
+ 
  
 div, p{
   color: white;

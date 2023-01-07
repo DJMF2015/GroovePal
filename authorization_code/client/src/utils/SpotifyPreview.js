@@ -15,7 +15,6 @@ const SpotifyPreview = ({
       title="Spotify Web Player"
       src={`https://open.spotify.com/embed${url.pathname}`}
       style={style}
-      frameborder="0"
       allowtransparency="true"
     ></iframe>
   );

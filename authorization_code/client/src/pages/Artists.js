@@ -1,5 +1,5 @@
 import React from 'react';
-import Spotify from '../utils/Spotify';
+import Spotify from '../utils/SpotifyPlayer';
 export default function Artists(props) {
   return props.artists
 

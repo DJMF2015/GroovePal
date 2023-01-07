@@ -58,7 +58,7 @@ export default function GenreFilterButton(props) {
             backgroundColor: 'ghostwhite',
             border: '1px solid white',
           }}
-          onBeforeInput={(e) => props.render(e.target.value)}
+          onBeforeInput={(e) => props.renderSearch(e.target.value)}
           placeholder="Search for an artist"
         />
       </form>

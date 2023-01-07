@@ -19,6 +19,7 @@ const Spotify = ({
   ...props
 }) => {
   const url = new URL(link);
+
   return (
     <>
       <iframe

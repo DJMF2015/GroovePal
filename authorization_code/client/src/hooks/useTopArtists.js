@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import SortByTopGenres from '../utils/Genres';
+import SortByTopGenres from '../utils/TopGenres';
 import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
 const useTopArtists = () => {

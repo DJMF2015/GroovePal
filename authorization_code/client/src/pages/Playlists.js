@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Spotify from '../utils/Spotify';
+import Spotify from '../utils/SpotifyPlayer';
 import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
 export default function Playlists(props) {
@@ -19,6 +19,7 @@ export default function Playlists(props) {
     );
   }, [props.spotifyToken]);
   console.log({ items });
+
   return (
     <>
       <div className="background">

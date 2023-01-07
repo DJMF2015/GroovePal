@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import Spotify from '../utils/Spotify';
+import Spotify from '../utils/SpotifyPlayer';
 import SpotifyWebApi from 'spotify-web-api-js';
 import RelatedArtist from './RelatedArtist';
 const spotifyApi = new SpotifyWebApi();
@@ -29,6 +29,7 @@ const styles = {
   div: {
     display: 'flex',
     flexDirection: 'column',
+    padding: '0rem',
     alignItems: 'center',
     color: 'red',
   },
@@ -39,7 +40,6 @@ const ArtistDetailsCard = () => {
   const location = useLocation();
   const { from } = location.state;
   const artistId = from.id;
-  console.log({ artistId });
   useEffect(() => {
     const getRelatedArtists = async (artistId) => {
       const { data } = await axios.get(
@@ -71,8 +71,13 @@ const ArtistDetailsCard = () => {
         <h2>{from.popularity}</h2>
         <Spotify link={from.external_urls.spotify} style={styles.link} />
       </div>
+      <h2 style={{ marginTop: '1rem', textAlign: 'center' }}>Related Artists</h2>
       {relatedArtist &&
-        relatedArtist.map((artist, i) => <RelatedArtist artist={artist} />)}
+        relatedArtist.map((artist, i) => (
+          <>
+            <RelatedArtist artist={artist} />
+          </>
+        ))}
     </>
   );
 };

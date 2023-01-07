@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Spotify from '../utils/Spotify';
+import Spotify from '../utils/SpotifyPlayer';
 import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
 
@@ -30,6 +30,11 @@ export default function Likedtracks() {
               offset: offset,
             },
           });
+          if (response.status !== 200) {
+            console.log('Error: ', response.status);
+          } else if (response.status === 204 || response.status > 400) {
+            console.log('No Content');
+          }
 
           setLoading(true);
           const data = await response.data;
@@ -61,7 +66,7 @@ export default function Likedtracks() {
   }
 
   return (
-    <div>
+    <div className="background">
       <h2>Tracks: {likedtracks.length}</h2>
       {likedtracks &&
         likedtracks.map((track, i) => (
