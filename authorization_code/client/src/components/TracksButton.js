@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
 import SpotifyPreview from '../utils/SpotifyPreview';
 const spotifyApi = new SpotifyWebApi();
-const TimeRangeButton = () => {
+const TimeRangeButton = ({ setTracks }) => {
   const [timeRange, setTimeRange] = useState('long_term');
 
   const [tracks, setTopTracks] = useState([]);
@@ -18,40 +18,42 @@ const TimeRangeButton = () => {
       padding: '1rem',
     },
   };
-  const getUserTopTracks = () => {
-    // Get Current User's Recently Played Tracks
-    spotifyApi
-      .getMyTopTracks({
-        limit: 30,
-        time_range: timeRange,
-      })
-      .then(
-        function (data) {
-          // Output items
-          console.log('Your 20 most recently played tracks are:');
 
-          setTopTracks(data.items);
+  const fetchData = useCallback(async () => {
+    const res = await fetch(
+      `https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=${timeRange}`,
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
         },
-        function (err) {
-          console.log('Something went wrong!', err);
-        }
-      );
-  };
+        params: {
+          limit: 50,
+          offset: 0,
+          time_range: timeRange,
+        },
+      }
+    );
+
+    const data = await res.json();
+    setTopTracks(data.items);
+    setTracks(data.items);
+  }, [access_token, setTracks, timeRange]);
 
   useEffect(() => {
-    getUserTopTracks();
-  }, [timeRange]);
+    fetchData();
+  }, [fetchData]);
+
   return (
     <>
       <div className="time-range-buttons">
-        <button style={styles.button} onClick={() => setTimeRange('short_term')}>
-          Short Term
+        <button style={styles.button} onClick={() => setTimeRange('long_term')}>
+          Long Term
         </button>
         <button style={styles.button} onClick={() => setTimeRange('medium_term')}>
           Medium Term
         </button>
-        <button style={styles.button} onClick={() => setTimeRange('long_term')}>
-          Long Term
+        <button style={styles.button} onClick={() => setTimeRange('short_term')}>
+          Short Term
         </button>
       </div>
 

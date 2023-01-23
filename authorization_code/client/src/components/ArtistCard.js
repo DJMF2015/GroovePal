@@ -33,6 +33,11 @@ const styles = {
     alignItems: 'center',
     color: 'red',
   },
+
+  artist_tag: {
+    color: 'white',
+    fontSize: '1.5rem',
+  },
 };
 
 const ArtistDetailsCard = () => {
@@ -40,6 +45,19 @@ const ArtistDetailsCard = () => {
   const location = useLocation();
   const { from } = location.state;
   const artistId = from.id;
+
+  // Scroll to top of page when changing routes
+  // https://reactrouter.com/web/guides/scroll-restoration/scroll-to-top
+  function ScrollToTop() {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
+
+    return null;
+  }
+
   useEffect(() => {
     const getRelatedArtists = async (artistId) => {
       const { data } = await axios.get(
@@ -51,13 +69,13 @@ const ArtistDetailsCard = () => {
         }
       );
       const response = await data;
-      console.log({ response });
       setRelatedArtist(response.artists);
     };
     getRelatedArtists(artistId);
   }, []);
   return (
     <>
+      <ScrollToTop />
       <div style={styles.div}>
         <h1>Artist Details</h1>
         <Link to="/artists" style={styles.link}>
@@ -66,9 +84,10 @@ const ArtistDetailsCard = () => {
         </Link>
         <img src={from.images[1].url} alt={from.name} style={styles.img} />
         <h2>{from.name}</h2>
-        <h2>{from.followers.total}</h2>
-        <h2>{from.genres}</h2>
-        <h2>{from.popularity}</h2>
+        <h2 style={styles.artist_tag}>Followers: {from.followers.total}</h2>
+
+        <h2 style={styles.artist_tag}>Genres: {from.genres}</h2>
+        <h2 style={styles.artist_tag}>Popularity: {from.popularity}</h2>
         <Spotify link={from.external_urls.spotify} style={styles.link} />
       </div>
       <h2 style={{ marginTop: '1rem', textAlign: 'center' }}>Related Artists</h2>

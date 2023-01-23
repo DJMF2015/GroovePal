@@ -45,7 +45,7 @@ export default function GenreFilterButton(props) {
           </>
         ))
         .slice(0, 30)}
-      <form onSubmit={props.searchArtists}>
+      {/* <form onSubmit={props.searchArtists}>
         <input
           type="text"
           style={{
@@ -61,7 +61,7 @@ export default function GenreFilterButton(props) {
           onBeforeInput={(e) => props.renderSearch(e.target.value)}
           placeholder="Search for an artist"
         />
-      </form>
+      </form> */}
     </div>
   );
 }

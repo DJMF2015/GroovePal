@@ -1,4 +1,4 @@
-const Spotify = ({
+const SpotifyPlayer = ({
   link,
   style = {
     backgroundColor: 'transparent',
@@ -12,14 +12,12 @@ const Spotify = ({
   wide = false,
   width = wide ? '100%' : 300,
   height = wide ? 80 : 380,
-  frameBorder = 0,
   noreferrer = true,
   allow = 'encrypted-media',
   loading = 'lazy',
   ...props
 }) => {
   const url = new URL(link);
-
   return (
     <>
       <iframe
@@ -39,4 +37,4 @@ const Spotify = ({
   );
 };
 
-export default Spotify;
+export default SpotifyPlayer;

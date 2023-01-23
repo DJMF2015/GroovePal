@@ -46,7 +46,7 @@ const PlayList = () => {
       // Get Current User's Recently Played Tracks
       spotifyApi
         .getMyRecentlyPlayedTracks({
-          limit: 30,
+          limit: 10,
           time_range: 'short_term',
         })
         .then(

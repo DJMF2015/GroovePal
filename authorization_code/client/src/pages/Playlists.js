@@ -6,7 +6,7 @@ export default function Playlists(props) {
   const [items, setPlaylistName] = useState([]);
 
   useEffect(() => {
-    spotifyApi.getUserPlaylists({ limit: 30 }).then(
+    spotifyApi.getUserPlaylists({ limit: 50 }).then(
       function (data) {
         console.log('Retrieved playlists', data.items);
         const items = data.items;

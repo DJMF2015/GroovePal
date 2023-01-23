@@ -18,7 +18,6 @@ export default function Likedtracks() {
       // loop through savedTracks until no more pages and concatanate results
       const baseUrl = 'https://api.spotify.com/v1/me/tracks?';
       let lastResult = [];
-      // try catch to catch any errors in the async api call
       do {
         try {
           const response = await axios.get(`${baseUrl}${limit}&${offset}`, {
@@ -49,8 +48,7 @@ export default function Likedtracks() {
       } while (
         lastResult.next !== null &&
         lastResult.next !== undefined &&
-        lastResult.next !== '' &&
-        offset < 150
+        lastResult.next !== ''
       );
 
       setMyLikedTracks(savedTracks);
@@ -60,7 +58,6 @@ export default function Likedtracks() {
     getSavedTracks();
   }, []);
 
-  console.log({ likedtracks });
   if (loading) {
     return <div>Loading...</div>;
   }

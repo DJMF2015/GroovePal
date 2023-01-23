@@ -23,13 +23,11 @@ const style = {
 };
 
 export default function TopArtists() {
-  const [access_token, setAccessToken] = useState('');
   const [artist, setArtists] = useState([]);
   const [timeRange, setTimeRange] = useState('long_term');
   const [timeRangeText, setTimeRangeText] = useState('All Time');
-  const [topArtists, setTopArtists] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [recommendations, setSeedforRecommendations] = useState([]);
+  const [recommendations, setSeedforRecommendations] = useState(null);
   const [profile, setProfile] = useState([]);
   const [artistData, setArtistData] = useState([]);
 
@@ -37,11 +35,7 @@ export default function TopArtists() {
     const fetchTopArtists = async () => {
       const access_token = spotifyApi.getAccessToken();
       const baseUrl = `https://api.spotify.com/v1/me/top/artists?`;
-      setAccessToken(access_token);
 
-      spotifyApi.getMe().then((data) => {
-        setProfile(data);
-      });
       setLoading(true);
       const response = await axios
         .get(` ${baseUrl}`, {
@@ -49,7 +43,7 @@ export default function TopArtists() {
             Authorization: `Bearer ${access_token}`,
           },
           params: {
-            limit: 10,
+            limit: 20,
             offset: 0,
             time_range: timeRange,
           },
@@ -58,35 +52,35 @@ export default function TopArtists() {
           console.log(err);
         });
       const topArtistsId = response.data.items.map((artist) => artist.id);
-      const seeds = topArtistsId.slice(0, 5);
-      setSeedforRecommendations(seeds);
+      const seeds = topArtistsId;
+      // set random seed for recommendations
+      const randomSeed = seeds[(Math.random() * seeds.length) | 0];
+      setSeedforRecommendations(randomSeed);
       let topArtists = response.data.items.map((artist) => artist);
       setArtists(topArtists);
-      setTopArtists(topArtistsId);
     };
-
     fetchTopArtists();
     setLoading(false);
   }, [timeRange]);
 
   useEffect(() => {
     const getRecommendations = async () => {
-      spotifyApi
-        .getRecommendations({
-          min_energy: 0.5,
-          seed_artists: recommendations,
-          min_popularity: 30,
-          min_instrumentalness: 0.5,
+      const endpoint = 'https://api.spotify.com/v1/recommendations';
+      const artistSeeds = encodeURIComponent(recommendations);
+
+      const joinaArtistSeeds = artistSeeds.split(',').join('%2C');
+
+      fetch(`${endpoint}?seed_artists=${joinaArtistSeeds}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${spotifyApi.getAccessToken()}`,
+        },
+      }).then((response) =>
+        response.json().then((data) => {
+          console.log(data);
+          setArtistData(data);
         })
-        .then(
-          function (data) {
-            let recommendations = data;
-            setArtistData(recommendations);
-          },
-          function (err) {
-            console.log('Something went wrong!', err);
-          }
-        );
+      );
     };
     getRecommendations();
   }, [recommendations]);
@@ -176,7 +170,7 @@ export default function TopArtists() {
               </>
             );
           })
-          .slice(0, 10)}
+          .slice(0, 20)}
       </div>
       <h2 style={{ textAlign: 'center', color: 'red' }}>Recommendations</h2>
       {!loading && artistData && <RecommendationsCard artistData={artistData} />}
