@@ -72,7 +72,7 @@ const ArtistDetailsCard = () => {
       setRelatedArtist(response.artists);
     };
     getRelatedArtists(artistId);
-  }, []);
+  }, [artistId]);
   return (
     <>
       <ScrollToTop />

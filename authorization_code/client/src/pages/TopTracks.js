@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import TodayDate from '../utils/Date';
 import SpotifyWebApi from 'spotify-web-api-js';
-import TracksButton from '../components/TracksButton';
+import TracksButton from '../components/TopTracksButton';
 const spotifyApi = new SpotifyWebApi();
 
 const TopTracks = () => {

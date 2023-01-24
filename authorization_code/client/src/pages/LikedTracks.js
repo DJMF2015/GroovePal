@@ -12,7 +12,6 @@ export default function Likedtracks() {
   useEffect(() => {
     const getSavedTracks = async () => {
       let offset = 0;
-      let limit = 50;
       const savedTracks = [];
 
       // loop through savedTracks until no more pages and concatanate results
@@ -20,7 +19,7 @@ export default function Likedtracks() {
       let lastResult = [];
       do {
         try {
-          const response = await axios.get(`${baseUrl}${limit}&${offset}`, {
+          const response = await axios.get(`${baseUrl}`, {
             headers: {
               Authorization: `Bearer ${spotifyApi.getAccessToken()}`,
             },
@@ -50,7 +49,10 @@ export default function Likedtracks() {
         lastResult.next !== undefined &&
         lastResult.next !== ''
       );
-
+      //sort tracks by date added
+      savedTracks.sort((a, b) => {
+        return new Date(a.added_at) - new Date(b.added_at);
+      });
       setMyLikedTracks(savedTracks);
       setLoading(false);
     };
@@ -59,7 +61,7 @@ export default function Likedtracks() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <h2 style={{ textAlign: 'center', color: 'red' }}>Loading......</h2>;
   }
 
   return (

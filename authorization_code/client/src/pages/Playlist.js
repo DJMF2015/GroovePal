@@ -5,6 +5,9 @@ import Artists from '../pages/Artists';
 import GenreFilterButton from '../components/FilterButton';
 import React, { useState, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
+// import styled from 'styled-components/macro';
+import { GlobalStyle } from '../styles';
+import Login from '../pages/Login';
 import useTopArtists from '../hooks/useTopArtists';
 import SpotifyWebApi from 'spotify-web-api-js';
 import SpotifyPreview from '../utils/SpotifyPreview';
@@ -65,11 +68,8 @@ const PlayList = () => {
   }, []);
   return (
     <div className="background">
-      {!spotifyToken ? (
-        <a href="http://localhost:8888/login">Log in to Spotify</a>
-      ) : (
-        <h3> {profile.display_name} profile </h3>
-      )}
+      <GlobalStyle />
+      {!spotifyToken ? <Login /> : <h3> {profile.display_name} profile </h3>}
       {/* {loading && profile && <UserProfile profile={profile} />} */}
       <>
         <GenreFilterButton
@@ -80,7 +80,7 @@ const PlayList = () => {
         />
         <Artists artists={artists} />
       </>
-      <div className="background">
+      {/* <div className="background">
         <h3>Recently Played</h3>
         {getRecent &&
           getRecent.map((track, i) => (
@@ -89,7 +89,7 @@ const PlayList = () => {
               <SpotifyPreview link={track.track.external_urls.spotify} />
             </>
           ))}
-      </div>
+      </div> */}
     </div>
   );
 };

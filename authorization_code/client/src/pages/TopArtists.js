@@ -55,7 +55,7 @@ export default function TopArtists() {
         });
       const topArtistsId = response.data.items.map((artist) => artist.id);
       const seeds = topArtistsId;
-      // set random seed for recommendations
+      // set random seed for recommendations from top artists
       const randomSeed = seeds[(Math.random() * seeds.length) | 0];
       setSeedforRecommendations(randomSeed);
       let topArtists = response.data.items.map((artist) => artist);
@@ -88,11 +88,11 @@ export default function TopArtists() {
 
   return (
     <div>
-      <h2 style={{ textAlign: 'center' }}>{profile.display_name} Top Artists</h2>
+      {/* <h2 style={{ textAlign: 'center' }}>{profile.display_name} Top Artists</h2> */}
 
       <TimeRangeButton
         onClick={toggleTimeRange}
-        timeRangeText={timeRangeText} // timeRangeText is a state from TimeRange.js
+        timeRangeText={timeRangeText}
         style={style}
       />
 

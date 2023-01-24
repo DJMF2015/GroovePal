@@ -6,13 +6,16 @@ export default function Artists(props) {
     .map((artist, i) => (
       <>
         <div key={artist.id}>
-          <p style={{ margin: '0px', fontSize: '28px', padding: '0.5em' }}>
+          <p style={{ margin: '0px', fontSize: '28px', padding: '.5em' }}>
             {' '}
             {artist.name}
           </p>
 
           <br></br>
-          <Spotify link={artist.external_urls.spotify} />
+          <Spotify
+            style={{ width: '75%', height: '600px' }}
+            link={artist.external_urls.spotify}
+          />
         </div>
       </>
     ))

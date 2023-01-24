@@ -1,23 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
 import SpotifyPreview from '../utils/SpotifyPreview';
+import TimeRangeButton from '../components/TimeRangeButton';
+import useToggleTimeRange from '../hooks/useTimeRange';
 const spotifyApi = new SpotifyWebApi();
 const TracksButton = ({ setTracks }) => {
-  const [timeRange, setTimeRange] = useState('long_term');
-
+  const { timeRange, timeRangeText, toggleTimeRange } = useToggleTimeRange();
   const [tracks, setTopTracks] = useState([]);
   const access_token = spotifyApi.getAccessToken();
-
-  const styles = {
-    button: {
-      backgroundColor: 'black',
-      margin: '0 1rem',
-      color: 'white',
-      border: '2px solid white',
-      borderRadius: '10rem',
-      padding: '1rem',
-    },
-  };
 
   const fetchData = useCallback(async () => {
     const res = await fetch(
@@ -45,17 +35,7 @@ const TracksButton = ({ setTracks }) => {
 
   return (
     <>
-      <div>
-        <button style={styles.button} onClick={() => setTimeRange('long_term')}>
-          Long Term
-        </button>
-        <button style={styles.button} onClick={() => setTimeRange('medium_term')}>
-          Medium Term
-        </button>
-        <button style={styles.button} onClick={() => setTimeRange('short_term')}>
-          Short Term
-        </button>
-      </div>
+      <TimeRangeButton onClick={toggleTimeRange} timeRangeText={timeRangeText} />
 
       {tracks && access_token ? (
         tracks.map((track, i) => {
