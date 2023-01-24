@@ -2,6 +2,8 @@ import Spotify from '../utils/SpotifyPlayer';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
+import TimeRangeButton from '../components/TimeRangeButton';
+import useToggleTimeRange from '../hooks/useTimeRange';
 import { Link } from 'react-router-dom';
 import RecommendationsCard from '../components/RecommendationsCard';
 const spotifyApi = new SpotifyWebApi();
@@ -24,8 +26,8 @@ const style = {
 
 export default function TopArtists() {
   const [artist, setArtists] = useState([]);
-  const [timeRange, setTimeRange] = useState('long_term');
-  const [timeRangeText, setTimeRangeText] = useState('All Time');
+  // import timeRange hook  from TimeRange.js
+  const { timeRange, timeRangeText, toggleTimeRange } = useToggleTimeRange();
   const [loading, setLoading] = useState(false);
   const [recommendations, setSeedforRecommendations] = useState(null);
   const [profile, setProfile] = useState([]);
@@ -77,7 +79,6 @@ export default function TopArtists() {
         },
       }).then((response) =>
         response.json().then((data) => {
-          console.log(data);
           setArtistData(data);
         })
       );
@@ -85,41 +86,16 @@ export default function TopArtists() {
     getRecommendations();
   }, [recommendations]);
 
-  const toggleTimeRange = () => {
-    if (timeRange === 'long_term') {
-      setTimeRange('medium_term');
-      setTimeRangeText('Last 6 Months');
-    } else if (timeRange === 'medium_term') {
-      setTimeRange('short_term');
-      setTimeRangeText('Last 4 Weeks');
-    } else if (timeRange === 'short_term') {
-      setTimeRange('long_term');
-      setTimeRangeText('All Time');
-    }
-  };
-
   return (
     <div>
       <h2 style={{ textAlign: 'center' }}>{profile.display_name} Top Artists</h2>
 
-      <div>
-        <button
-          style={{
-            marginLeft: '30vw',
-            backgroundColor: 'black',
-            color: 'white',
-            margin: '0 auto',
-            display: 'block',
-            marginTop: '1rem',
-            border: '2px solid white',
-            borderRadius: '10rem',
-            padding: '1rem',
-          }}
-          onClick={toggleTimeRange}
-        >
-          {timeRangeText}
-        </button>
-      </div>
+      <TimeRangeButton
+        onClick={toggleTimeRange}
+        timeRangeText={timeRangeText} // timeRangeText is a state from TimeRange.js
+        style={style}
+      />
+
       <div style={style.container}>
         {artist
           .map((data, i) => {

@@ -1,54 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import TodayDate from '../utils/Date';
 import SpotifyWebApi from 'spotify-web-api-js';
 import TracksButton from '../components/TracksButton';
-import axios from 'axios';
 const spotifyApi = new SpotifyWebApi();
 
 const TopTracks = () => {
-  const [data, setData] = useState([]);
-  const [timeRange, setTimeRange] = useState('long_term');
-  const [playlistName, setPlaylistName] = useState(`David's Top Tracks - ${TodayDate()}`);
-  const access_token = spotifyApi.getAccessToken();
+  const [playlistName, setPlaylistName] = useState(`Top Tracks - ${TodayDate()}`);
   const [tracks, setTracks] = useState([]);
-  // useEffect(() => {
-  //   const getTopAllTimeTracks = async () => {
-  //     const baseUrl = `https://api.spotify.com/v1/me/top/tracks?time_range=${timeRange}`;
-  //     const topTracks = [];
-  //     let lastResult = [];
 
-  //     try {
-  //       const response = await axios.get(`${baseUrl}`, {
-  //         headers: {
-  //           Authorization: `Bearer ${access_token}`,
-  //         },
-  //         params: {
-  //           limit: 50,
-  //           offset: 0,
-  //           time_range: timeRange,
-  //         },
-  //       });
-
-  //       const data = await response.data;
-  //       lastResult = data;
-  //       lastResult.items.forEach((item) => {
-  //         topTracks.push(item);
-  //         setData(topTracks);
-  //       });
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   getTopAllTimeTracks();
-  // }, [timeRange, access_token]);
-  console.log({ tracks });
   const createTopTracksPlaylist = async () => {
     let me = await spotifyApi.getMe();
 
     await spotifyApi.createPlaylist(me.id, {
       name: playlistName,
       public: true,
-      description: `David's Top Tracks - ${TodayDate()}`,
+      description: `${me.display_name} David's Top Tracks - ${TodayDate()}`,
     });
 
     const playlists = await spotifyApi.getUserPlaylists(me.id);

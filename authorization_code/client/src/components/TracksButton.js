@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
 import SpotifyPreview from '../utils/SpotifyPreview';
 const spotifyApi = new SpotifyWebApi();
-const TimeRangeButton = ({ setTracks }) => {
+const TracksButton = ({ setTracks }) => {
   const [timeRange, setTimeRange] = useState('long_term');
 
   const [tracks, setTopTracks] = useState([]);
@@ -45,7 +45,7 @@ const TimeRangeButton = ({ setTracks }) => {
 
   return (
     <>
-      <div className="time-range-buttons">
+      <div>
         <button style={styles.button} onClick={() => setTimeRange('long_term')}>
           Long Term
         </button>
@@ -61,6 +61,7 @@ const TimeRangeButton = ({ setTracks }) => {
         tracks.map((track, i) => {
           return (
             <>
+              {/* <p>{i + 1}</p> */}
               <p key={i}>Album: {track.album.name}</p>
               <p>Track: {track.name}</p>
               <p>Popularity: {track.popularity}</p>
@@ -86,4 +87,4 @@ const TimeRangeButton = ({ setTracks }) => {
     </>
   );
 };
-export default TimeRangeButton;
+export default TracksButton;
