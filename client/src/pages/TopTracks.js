@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import TodayDate from '../utils/Date';
+import styled from 'styled-components/macro';
 import SpotifyWebApi from 'spotify-web-api-js';
 import TracksButton from '../components/TopTracksButton';
 const spotifyApi = new SpotifyWebApi();
@@ -31,8 +32,27 @@ const TopTracks = () => {
   return (
     <>
       <div className="background">
-        <h2>All Time Top Tracks</h2>
-        <button onClick={createTopTracksPlaylist}>Create Top Tracks Playlist</button>
+        {/* <h2>Top Tracks</h2> */}
+
+        <button
+          const
+          style={{
+            // display: 'inline-block',
+            display: 'flex',
+            alignItems: 'flex-end',
+            margin: '0 auto',
+            backgroundColor: '#282828',
+            color: 'white',
+            font: 'Roboto',
+            fontSize: '1rem',
+            border: '3px solid white',
+            borderRadius: '10rem',
+          }}
+          onClick={createTopTracksPlaylist}
+        >
+          Create Playlist
+        </button>
+
         <TracksButton setTracks={setTracks} />
       </div>
     </>

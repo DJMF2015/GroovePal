@@ -5,22 +5,21 @@
  ul {
    list-style-type: none;
    margin: 0;
-   padding: 1rem;
+   padding: 2.5rem;
    overflow: hidden;
    background-color: black;
-   border: 1px  dashed white;
+   margin-bottom: 1rem;
  
  }
 
  li {
    display: inline-flex;
    margin-left: 10vw; 
-   
 
  }
 
  li a {
-   display: block;
+  
    color: white;
    text-align: center;
    font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -34,6 +33,7 @@
    color: black;
    border-radius: 50px;
   box-shadow: 10px 5px 15px 5px rgba(224, 216, 216, 0.75);
+  text-decoration: none;
  }
  
  .active {
@@ -46,11 +46,11 @@ a, .App-link {
 }
  
 button{
-    margin: 1px;
-    margin-top: 1rem;
-    border: 2px solid blue;
+    margin: 10px;
+    margin-top: 1rem;  
     border-radius: 50px;
     padding: 1rem;
+    
 }
  
  
@@ -59,10 +59,13 @@ div, p{
   font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
 }
-.background { 
+div.background { 
 height: 100vh;
 text-align: center; 
+background-color: #181818;
+background: linear-gradient(rgba(28, 26, 26, 0.81) 14%, #1d1a1a);
 }
+
 body{
   background-color: black;
   

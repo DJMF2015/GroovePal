@@ -1,20 +1,20 @@
 import React from 'react';
 import Spotify from '../utils/SpotifyPlayer';
 export default function Artists(props) {
-  return props.artists
+  return props.playlist
 
-    .map((artist, i) => (
+    .map((playlist, i) => (
       <>
-        <div key={artist.id}>
+        <div key={playlist.id}>
           <p style={{ margin: '0px', fontSize: '28px', padding: '.5em' }}>
             {' '}
-            {artist.name}
+            {playlist.name}
           </p>
 
           <br></br>
           <Spotify
             style={{ width: '75%', height: '600px' }}
-            link={artist.external_urls.spotify}
+            link={playlist.external_urls.spotify}
           />
         </div>
       </>

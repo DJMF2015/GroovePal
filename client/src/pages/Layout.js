@@ -7,9 +7,6 @@ const Layout = () => {
       <nav>
         <ul>
           <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
             <Link to="/">Top Genres</Link>
           </li>
           <li>
@@ -19,14 +16,13 @@ const Layout = () => {
             <Link to="/artists">Top Artists </Link>
           </li>
           <li>
-            <Link to="/playlists">Playlists</Link>
+            <Link to="/playlists">Playlists </Link>
           </li>
           <li>
             <Link to="/saved">Liked Tracks 👍 </Link>
           </li>
         </ul>
       </nav>
-
       <Outlet />
     </>
   );

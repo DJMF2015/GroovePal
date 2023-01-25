@@ -78,12 +78,12 @@ export default function Likedtracks() {
                 src={track.track.album.images[0].url}
                 alt="album art"
                 style={{
-                  width: '15%',
+                  width: '10%',
                   margin: '0  auto',
                   display: 'block',
-                  marginBottom: '1rem',
                   marginTop: '1rem',
                   borderRadius: '50%',
+                  border: '2px solid white',
                 }}
               />
             </>
@@ -91,10 +91,9 @@ export default function Likedtracks() {
             <Spotify
               link={track.track.external_urls.spotify}
               style={{
-                width: '90%',
+                width: '70%',
                 height: '5rem',
                 marginTop: '1rem',
-                marginLeft: '5vw',
               }}
             />
           </>

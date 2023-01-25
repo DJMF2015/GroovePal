@@ -1,8 +1,15 @@
 import React from 'react';
-
+import styled from 'styled-components';
 export default function GenreFilterButton(props) {
   return (
     <div>
+      <form onSubmit={props.searchArtists}>
+        <StyledInputField
+          type="text"
+          onBeforeInput={(e) => props.renderSearch(e.target.value)}
+          placeholder="Search Artist"
+        ></StyledInputField>
+      </form>
       {props.genre
         .map((option, index) => (
           <>
@@ -17,7 +24,6 @@ export default function GenreFilterButton(props) {
                 height: '60px',
                 fontSize: '18px',
                 backgroundColor: 'ghostwhite',
-                border: '3px solid red',
                 borderRadius: '10px',
               }}
               onSubmit={props.searchArtists}
@@ -44,24 +50,29 @@ export default function GenreFilterButton(props) {
             </form>
           </>
         ))
-        .slice(0, 30)}
-      {/* <form onSubmit={props.searchArtists}>
-        <input
-          type="text"
-          style={{
-            padding: '10px',
-            fontSize: '22px',
-            width: '50%',
-            borderRadius: '10px',
-            margin: '10px',
-            marginTop: '1rem',
-            backgroundColor: 'ghostwhite',
-            border: '1px solid white',
-          }}
-          onBeforeInput={(e) => props.renderSearch(e.target.value)}
-          placeholder="Search for an artist"
-        />
-      </form> */}
+        .slice(0, 20)}
     </div>
   );
 }
+
+const StyledInputField = styled.input`
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 12rem;
+  box-sizing: border-box;
+  border: 2px solid white;
+  border-radius: 20px;
+  font-size: 16px;
+  font: 'Roboto', sans-serif;
+  background-color: ghostwhite;
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+
+  &:focus {
+    width: 75%;
+    background-color: ghostwhite;
+  }
+`;

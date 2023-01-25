@@ -1,0 +1,49 @@
+// import logo from './logo.svg';
+import './App.css';
+import ReactDOM from 'react-dom/client';
+import Layout from './pages/Layout';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import PlayList from './pages/Playlist';
+import TopTracks from './pages/TopTracks';
+import UserPlaylists from './pages/Playlists';
+import Login from './pages/Login';
+
+import useAuth from './hooks/useAuth';
+import ArtistDetailsCard from './components/ArtistCard';
+import Likedtracks from './pages/LikedTracks';
+import TopArtists from './pages/TopArtists';
+
+function App() {
+  const { spotifyToken, profile } = useAuth();
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    setToken(spotifyToken);
+  }, [spotifyToken]);
+
+  console.log({ profile });
+  return (
+    <>
+      {!token ? (
+        <Login />
+      ) : (
+        <>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route path="/" element={<PlayList />} />
+                <Route path="/tracks" element={<TopTracks />} />
+                <Route path="/playlists" element={<UserPlaylists />} />
+                <Route path="/saved" element={<Likedtracks />} />
+                <Route path="/artists" element={<TopArtists />} />
+                <Route path="/artists/:id" element={<ArtistDetailsCard />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </>
+      )}
+    </>
+  );
+}
+export default App;
