@@ -39,8 +39,8 @@ const TopTracks = () => {
           style={{
             // display: 'inline-block',
             display: 'flex',
-            alignItems: 'flex-end',
-            margin: '0 auto',
+            // alignItems: 'flex-end',
+            margin: '10px auto',
             backgroundColor: '#282828',
             color: 'white',
             font: 'Roboto',

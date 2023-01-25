@@ -72,7 +72,7 @@ const PlayList = (props) => {
       // Get Current User's Recently Played Tracks
       spotifyApi
         .getMyRecentlyPlayedTracks({
-          limit: 50,
+          limit: 30,
           time_range: 'short_term',
         })
         .then(
@@ -90,8 +90,10 @@ const PlayList = (props) => {
     getRecentlyPlayed();
   }, []);
   return (
-    <div className="background">
-      {/* {props.profile && (
+    <>
+      <div className="background">
+        <h3>Top Genres</h3>
+        {/* {props.profile && (
         <div>
           <h1>{props.profile.display_name}</h1>
           <p>{props.profile.followers.total} Followers</p>
@@ -111,38 +113,38 @@ const PlayList = (props) => {
           )}
         </div>
       )} */}
-      <GlobalStyle />
+        <GlobalStyle />
 
-      <TimeRangeButton
-        onClick={toggleTimeRange}
-        timeRangeText={timeRangeText}
-        timeRanges={timeRanges}
-      />
-
-      {/* {loading && profile && <UserProfile profile={profile} />} */}
-      <>
-        <GenreFilterButton
-          genre={genre}
-          renderGenre={renderGenre}
-          renderSearch={renderSearch}
-          searchArtists={searchArtists}
+        <TimeRangeButton
+          onClick={toggleTimeRange}
+          timeRangeText={timeRangeText}
+          timeRanges={timeRanges}
         />
 
-        <Artists playlist={playlist} />
-      </>
-      <br></br>
-      <div className="background">
-        <h3>Recently Played</h3>
+        <>
+          <GenreFilterButton
+            genre={genre}
+            renderGenre={renderGenre}
+            renderSearch={renderSearch}
+            searchArtists={searchArtists}
+          />
 
-        {getRecent &&
-          getRecent.map((track, i) => (
-            <>
-              <p>{track.track.name}</p>
-              <SpotifyPreview link={track.track.external_urls.spotify} />
-            </>
-          ))}
+          <Artists playlist={playlist} />
+        </>
+        <br></br>
+        <div className="background">
+          <h3>Recently Played</h3>
+
+          {getRecent &&
+            getRecent.map((track, i) => (
+              <>
+                <p>{track.track.name}</p>
+                <SpotifyPreview link={track.track.external_urls.spotify} />
+              </>
+            ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -47,8 +47,12 @@ const TracksButton = ({ setTracks }) => {
               <p>Popularity: {track.popularity}</p>
               <img
                 style={{
-                  display: 'block',
-                  margin: '10px auto',
+                  // display: 'block',
+                  // margin: '10px auto',
+                  margin: '0 auto',
+                  position: 'relative',
+                  top: '-10%',
+                  left: '50%',
                   width: '5rem',
                   height: '5rem',
                   borderRadius: '5rem',

@@ -4,20 +4,33 @@
  
  ul {
    list-style-type: none;
-   margin: 0;
+   /* margin: -10px; */
    padding: 2.5rem;
    overflow: hidden;
    background-color: black;
-   margin-bottom: 1rem;
- 
+   /* margin-bottom: 1rem; */
+   z-index: 1;
+  /* position: fixed; */
  }
 
  li {
    display: inline-flex;
    margin-left: 10vw; 
+   
 
  }
 
+ /* nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:1rem; 
+    background-color: black;
+    z-index: 1;
+    position: fixed;
+    width: 100%;
+ }
+  */
  li a {
   
    color: white;
@@ -60,7 +73,7 @@ div, p{
   font-family: Arial, Helvetica, sans-serif;
 }
 div.background { 
-height: 100vh;
+height: 100%;
 text-align: center; 
 background-color: #181818;
 background: linear-gradient(rgba(28, 26, 26, 0.81) 14%, #1d1a1a);

@@ -8,10 +8,10 @@ export default function Playlists(props) {
     container: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-      gridGap: 'repeat(auto-fit, minmax(250px, 1fr))',
+      gridGap: 'repeat(auto-fit, minmax(100px, 1fr))',
       justifyContent: 'center',
       alignItems: 'center',
-      margin: '1vw',
+      margin: '3vw',
       textAlign: 'center',
       padding: '2rem',
       borderRadius: '1rem',

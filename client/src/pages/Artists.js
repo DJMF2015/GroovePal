@@ -13,7 +13,7 @@ export default function Artists(props) {
 
           <br></br>
           <Spotify
-            style={{ width: '75%', height: '600px' }}
+            // style={{ width: '75%', height: '600px' }}
             link={playlist.external_urls.spotify}
           />
         </div>

@@ -6,7 +6,9 @@ const SpotifyPreview = ({
     width: '50%',
     height: '5rem',
     margin: '0 auto',
-    boxShadow: '30px 1px 40px 2px ghostwhite',
+    // boxShadow: '15px 10px 15px 5px red',
+    overflow: 'hidden',
+    // paddingTop: '56.25%' /* 16:9 Aspect Ratio */,
   },
 }) => {
   const url = new URL(link);

@@ -44,7 +44,7 @@ const TimeRangeButton = ({ timeRangeText, onClick, style }) => {
     fontSize: '1rem',
     margin: '0 auto',
     // display: 'block',
-    postion: 'relative',
+    postion: 'absolute',
     border: '3px solid white',
     borderRadius: '10rem',
   };
