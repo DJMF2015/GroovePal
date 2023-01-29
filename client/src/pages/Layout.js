@@ -1,11 +1,14 @@
 import { Outlet, Link } from 'react-router-dom';
 // import '../index.css';
+import StyledHeader from '../styles/StyledHeader';
 import '../App.css';
 const Layout = () => {
   return (
     <>
-      <nav>
-        <ul>
+      {/* <nav> */}
+      <StyledHeader type="user">
+        <div className="header__inner">
+          {/* <ul> */}
           <li>
             <Link to="/">Top Genres</Link>
           </li>
@@ -19,10 +22,12 @@ const Layout = () => {
             <Link to="/playlists">Playlists </Link>
           </li>
           <li>
-            <Link to="/saved">Liked Tracks 👍 </Link>
+            <Link to="/saved">Starred Tracks </Link>
           </li>
-        </ul>
-      </nav>
+          {/* </ul> */}
+        </div>
+      </StyledHeader>
+      {/* </nav> */}
       <Outlet />
     </>
   );

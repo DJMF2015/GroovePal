@@ -1,21 +1,12 @@
-// import React, { useState, useEffect } from 'react';
-// import useAuth from '../hooks/useAuth';
-// export default function UserProfile(props) {
-//   const { profile } = useAuth();
-//   console.log({ profile });
-
-//   return (
-//     <div>
-//       <h1> {props.profile.display_name}</h1>
-//       <a href={props.profile?.external_urls.spotify} rel="noreferrer" target="_blank">
-//         Spotify Profile
-//       </a>
-//       <br></br> <br></br>
-//       <img
-//         style={{ width: '200px', height: '150px', position: 'relative' }}
-//         src={props.profile?.images[0].url}
-//         alt="davidf"
-//       />
-//     </div>
-//   );
-// }
+import React from 'react';
+import SpotifyWebApi from 'spotify-web-api-js';
+import PlayList from './Playlist';
+import useAuth from '../hooks/useAuth';
+const spotifyApi = new SpotifyWebApi();
+const UserProfile = () => {
+  const { profile } = useAuth();
+  //   const profile = await spotifyApi.getMe();
+  //   const userprofile = await spotifyApi.getUser(profile.id);
+  console.log({ profile });
+};
+export default UserProfile;

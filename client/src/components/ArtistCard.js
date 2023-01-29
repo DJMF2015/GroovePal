@@ -11,6 +11,8 @@ const styles = {
     margin: '0 auto',
     borderRadius: '50%',
     display: 'flex',
+    width: '100px',
+    height: '100px',
   },
 
   link: {

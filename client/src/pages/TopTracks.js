@@ -32,17 +32,14 @@ const TopTracks = () => {
   return (
     <>
       <div className="background">
-        {/* <h2>Top Tracks</h2> */}
-
         <button
           const
           style={{
-            // display: 'inline-block',
             display: 'flex',
-            // alignItems: 'flex-end',
             margin: '10px auto',
-            backgroundColor: '#282828',
-            color: 'white',
+            marginTop: '0rem',
+            backgroundColor: '#1DB954',
+            color: 'black',
             font: 'Roboto',
             fontSize: '1rem',
             border: '3px solid white',

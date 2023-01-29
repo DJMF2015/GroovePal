@@ -51,7 +51,7 @@ export default function Likedtracks() {
       );
       //sort tracks by date added
       savedTracks.sort((a, b) => {
-        return new Date(a.added_at) - new Date(b.added_at);
+        return new Date(b.added_at) - new Date(a.added_at);
       });
       setMyLikedTracks(savedTracks);
       setLoading(false);

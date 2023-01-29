@@ -15,7 +15,6 @@ export default function Playlists(props) {
       textAlign: 'center',
       padding: '2rem',
       borderRadius: '1rem',
-      // border: '100% solid white',
     },
   };
 

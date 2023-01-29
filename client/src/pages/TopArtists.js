@@ -16,11 +16,9 @@ const style = {
     gridAutoRows: 'minmax(100px, auto)',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: '2vw',
+    margin: '6vw',
     textAlign: 'center',
     padding: '0rem',
-    borderRadius: '1rem',
-    border: '5px solid white',
   },
 };
 
@@ -32,20 +30,18 @@ export default function TopArtists() {
   const [recommendations, setSeedforRecommendations] = useState(null);
   const [profile, setProfile] = useState([]);
   const [artistData, setArtistData] = useState([]);
-
   useEffect(() => {
     const fetchTopArtists = async () => {
       const access_token = spotifyApi.getAccessToken();
       const baseUrl = `https://api.spotify.com/v1/me/top/artists?`;
 
-      setLoading(true);
       const response = await axios
-        .get(` ${baseUrl}`, {
+        .get(`${baseUrl}`, {
           headers: {
             Authorization: `Bearer ${access_token}`,
           },
           params: {
-            limit: 20,
+            limit: 50,
             offset: 0,
             time_range: timeRange,
           },
@@ -53,6 +49,7 @@ export default function TopArtists() {
         .catch((err) => {
           console.log(err);
         });
+      setLoading(true);
       const topArtistsId = response.data.items.map((artist) => artist.id);
       const seeds = topArtistsId;
       // set random seed for recommendations from top artists
@@ -70,10 +67,11 @@ export default function TopArtists() {
       const endpoint = 'https://api.spotify.com/v1/recommendations';
       const artistSeeds = encodeURIComponent(recommendations);
 
-      const joinaArtistSeeds = artistSeeds.split(',').join('%2C');
+      const joinArtistSeeds = artistSeeds.split(',').join('%2C');
 
-      fetch(`${endpoint}?seed_artists=${joinaArtistSeeds}`, {
+      fetch(`${endpoint}?seed_artists=${joinArtistSeeds}`, {
         method: 'GET',
+
         headers: {
           Authorization: `Bearer ${spotifyApi.getAccessToken()}`,
         },
@@ -88,68 +86,75 @@ export default function TopArtists() {
 
   return (
     <div>
-      {/* <h2 style={{ textAlign: 'center' }}>{profile.display_name} Top Artists</h2> */}
+      <h2 style={{ textAlign: 'center' }}>Top Artists</h2>
+      {artist.length === 0 ? (
+        <h2 style={{ textAlign: 'center' }}>
+          {' '}
+          Sorry. Not enough data. Please try again at a later date.
+        </h2>
+      ) : (
+        <>
+          <TimeRangeButton
+            onClick={toggleTimeRange}
+            timeRangeText={timeRangeText}
+            style={style}
+          />
+          <div style={style.container}>
+            {artist
+              .map((data, i) => {
+                return (
+                  <>
+                    <div
+                      style={{
+                        textAlign: 'left',
+                        width: '50%',
+                        marginTop: '30px',
+                        listStyle: 'none',
+                        margin: '30px auto',
+                        padding: '0rem',
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <h4>
+                        {i + 1} {data.name} {''}
+                      </h4>
+                      <img
+                        style={{
+                          width: '35%',
+                          height: '80%',
+                          backgroundColor: 'darkgrey',
+                          margin: '.5em',
+                          borderRadius: '5%',
+                        }}
+                        src={data.images[2].url}
+                        alt={data.name}
+                      />
 
-      <TimeRangeButton
-        onClick={toggleTimeRange}
-        timeRangeText={timeRangeText}
-        style={style}
-      />
-
-      <div style={style.container}>
-        {artist
-          .map((data, i) => {
-            return (
-              <>
-                <div
-                  style={{
-                    textAlign: 'left',
-                    width: '50%',
-                    listStyle: 'none',
-                    margin: '0 auto',
-                    padding: '0rem',
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <h4>
-                    {i + 1} {data.name} {''}
-                  </h4>
-                  <img
-                    style={{
-                      top: 0,
-                      width: '35%',
-                      height: '80%',
-                      backgroundColor: 'darkgrey',
-                      margin: '.1em',
-                      borderRadius: '5%',
-                    }}
-                    src={data.images[2].url}
-                    alt={data.name}
-                  />
-
-                  <Link
-                    to={`/artists/${data.id}`}
-                    state={{ from: data }}
-                    key={data.id}
-                    style={{
-                      textDecoration: 'none',
-                      marginTop: '4rem',
-                    }}
-                  >
-                    <div>
-                      <h4 style={{ margin: '0 auto' }}> Profile</h4>
+                      <Link
+                        to={`/artists/${data.id}`}
+                        state={{ from: data }}
+                        key={data.id}
+                        style={{
+                          textDecoration: 'none',
+                          marginTop: '4rem',
+                        }}
+                      >
+                        <div>
+                          <h4 style={{ margin: '0 auto' }}> Profile</h4>
+                        </div>
+                      </Link>
                     </div>
-                  </Link>
-                </div>
-              </>
-            );
-          })
-          .slice(0, 20)}
-      </div>
+                  </>
+                );
+              })
+              .slice(0, 30)}
+          </div>
+        </>
+      )}
       <h2 style={{ textAlign: 'center', color: 'red' }}>Recommendations</h2>
-      {!loading && artistData && <RecommendationsCard artistData={artistData} />}
+      {artistData && <RecommendationsCard artistData={artistData} />}
     </div>
   );
 }

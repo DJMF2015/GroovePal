@@ -3,13 +3,12 @@ import styled from 'styled-components';
 export default function GenreFilterButton(props) {
   return (
     <div>
-      <form onSubmit={props.searchArtists}>
-        <StyledInputField
-          type="text"
-          onBeforeInput={(e) => props.renderSearch(e.target.value)}
-          placeholder="Search Artist"
-        ></StyledInputField>
-      </form>
+      <StyledInputField
+        type="text"
+        onBeforeInput={(e) => props.renderSearch(e.target.value)}
+        placeholder="Search Artist"
+      />
+
       {props.genre
         .map((option, index) => (
           <>
@@ -57,7 +56,9 @@ export default function GenreFilterButton(props) {
 
 const StyledInputField = styled.input`
   margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  display: flex;
+  margin: 20px 0 40px 40px;
   width: 12rem;
   box-sizing: border-box;
   border: 2px solid white;
@@ -74,5 +75,6 @@ const StyledInputField = styled.input`
   &:focus {
     width: 75%;
     background-color: ghostwhite;
+    box-shadow: 10px 5px 15px 10px grey;
   }
 `;
