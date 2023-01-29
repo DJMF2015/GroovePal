@@ -153,7 +153,7 @@ export default function TopArtists() {
           </div>
         </>
       )}
-      <h2 style={{ textAlign: 'center', color: 'red' }}>Recommendations</h2>
+
       {artistData && <RecommendationsCard artistData={artistData} />}
     </div>
   );

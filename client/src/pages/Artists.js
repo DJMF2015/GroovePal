@@ -1,7 +1,6 @@
 import React from 'react';
 import Spotify from '../utils/SpotifyPlayer';
 export default function Artists(props) {
-  console.log({ props });
   return props.playlist
 
     .map((playlist, i) => (

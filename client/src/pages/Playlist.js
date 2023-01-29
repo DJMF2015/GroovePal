@@ -5,7 +5,6 @@ import Artists from '../pages/Artists';
 import GenreFilterButton from '../components/FilterButton';
 import React, { useState, useEffect } from 'react';
 import { catchErrors } from '../utils/helpers';
-import StyledHeader from '../styles/StyledHeader';
 import TimeRangeButton from '../components/TimeRangeButton';
 import useToggleTimeRange from '../hooks/useTimeRange';
 import useTopArtists from '../hooks/useTopArtists';
@@ -14,7 +13,7 @@ import SpotifyWebApi from 'spotify-web-api-js';
 import Spotify from '../utils/SpotifyPlayer';
 const spotifyApi = new SpotifyWebApi();
 
-const PlayList = (props) => {
+const PlayList = () => {
   const [searchKey, setSearchKey] = useState();
   const [artists, setArtists] = useState([]);
   const { timeRange, timeRangeText, toggleTimeRange } = useToggleTimeRange();
@@ -56,8 +55,7 @@ const PlayList = (props) => {
     });
     setTracks(data.tracks.items);
   };
-  console.log({ searchKey });
-  console.log({ tracks });
+
   // fecth current user profile from spotify  api
   // const fetchUserProfile = async () => {
   //   const { data } = await axios.get('https://api.spotify.com/v1/me', {
