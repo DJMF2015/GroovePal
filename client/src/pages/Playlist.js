@@ -10,7 +10,7 @@ import useToggleTimeRange from '../hooks/useTimeRange';
 import useTopArtists from '../hooks/useTopArtists';
 // import profile from '../pages/UserProfile';
 import SpotifyWebApi from 'spotify-web-api-js';
-import Spotify from '../utils/SpotifyPlayer';
+import SpotifyPreview from '../utils/SpotifyPreview';
 const spotifyApi = new SpotifyWebApi();
 
 const PlayList = () => {
@@ -68,28 +68,6 @@ const PlayList = () => {
   // };
   // catchErrors(fetchUserProfile());
   // console.log({ profile });
-  useEffect(() => {
-    const getRecentlyPlayed = () => {
-      // Get Current User's Recently Played Tracks
-      spotifyApi
-        .getMyRecentlyPlayedTracks({
-          limit: 30,
-          time_range: 'short_term',
-        })
-        .then(
-          function (data) {
-            // Output items
-            console.log('Your 20 most recently played tracks are:');
-
-            setRecentlyPlayed(data.items);
-          },
-          function (err) {
-            console.log('Something went wrong!', err);
-          }
-        );
-    };
-    getRecentlyPlayed();
-  }, []);
 
   if (!genre) {
     <h2>Not enough information</h2>;
@@ -122,22 +100,13 @@ const PlayList = () => {
         )}
         <br></br>
         <div className="background">
-          {/* <h3>Recently Played</h3>
-
-          {getRecent &&
-            getRecent.map((track, i) => (
-              <>
-                <p>{track.track.name}</p>
-                <SpotifyPreview link={track.track.external_urls.spotify} />
-              </>
-            ))} */}
           {tracks &&
             tracks.map((track, i) => (
               <>
                 <p>{track.name}</p>
 
-                <Spotify
-                  style={{ width: '400px', height: '100px' }}
+                <SpotifyPreview
+                  style={{ width: '400px', height: '100px', border: '1px solid black' }}
                   link={track.external_urls.spotify}
                 />
               </>
