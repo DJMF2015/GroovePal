@@ -1,6 +1,6 @@
 import * as React from 'react';
 import StyledTimeRange from '../styles/StyledTimeRange';
-const TimeRangeButton = ({ timeRangeText, onClick, style }) => {
+const TimeRangeButton = ({ timeRangeText, onClick }) => {
   return (
     <>
       <StyledTimeRange>

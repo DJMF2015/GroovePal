@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import getTokenfromUrl from '../utils/Hash';
 import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
@@ -19,8 +18,7 @@ const useAuth = () => {
       setLoggedIn(true);
     }
   }, [profile, loggedIn, spotifyToken]);
-
+  console.log({ profile });
   return { spotifyToken, loggedIn, profile };
 };
-
 export default useAuth;

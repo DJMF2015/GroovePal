@@ -3,13 +3,13 @@ import styled from 'styled-components/macro';
 const StyledSection = styled.section`
   &:first-of-type {
     .section__inner {
-      padding-top: 0;
+      padding-top: 15px;
     }
   }
   .section__inner {
     width: 100%;
     max-width: var(--site-max-width);
-    margin: 0 auto;
+    margin: 10px auto;
     position: relative;
     padding: var(--spacing-lg) var(--spacing-md);
     @media (min-width: 768px) {
@@ -20,11 +20,11 @@ const StyledSection = styled.section`
     display: flex;
     justify-content: space-between;
     align-items: stretch;
-    margin-bottom: var(--spacing-xl);
+    /* margin-bottom: var(--spacing-xl); */
   }
   .section__heading {
     display: flex;
-    margin: 0;
+    margin-bottom: var(--spacing-md);
     font-size: var(--fz-xxl);
   }
   .section__breadcrumb {
@@ -43,8 +43,8 @@ const StyledSection = styled.section`
     }
   }
   .section__see-all {
-    display: flex;
-    align-items: flex-end;
+    /* display: flex;
+    align-items: flex-end; */
     text-transform: uppercase;
     color: var(--light-grey);
     font-size: var(--fz-xxs);

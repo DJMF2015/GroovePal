@@ -78,6 +78,7 @@ const ArtistDetailsCard = () => {
   return (
     <>
       <ScrollToTop />
+
       <div style={styles.div}>
         <h1>Artist Details</h1>
         <Link to="/artists" style={styles.link}>

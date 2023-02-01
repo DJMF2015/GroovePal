@@ -1,9 +1,9 @@
-import Spotify from '../utils/SpotifyPlayer';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
 import TimeRangeButton from '../components/TimeRangeButton';
 import useToggleTimeRange from '../hooks/useTimeRange';
+import { SectionWrapper } from '../components';
 import { Link } from 'react-router-dom';
 import RecommendationsCard from '../components/RecommendationsCard';
 const spotifyApi = new SpotifyWebApi();
@@ -11,8 +11,8 @@ const spotifyApi = new SpotifyWebApi();
 const style = {
   container: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(5, 1fr)',
-    gridGap: '.5rem',
+    gridTemplateColumns: 'repeat(6, 1fr)',
+    gridGap: '1rem',
     gridAutoRows: 'minmax(100px, auto)',
     justifyContent: 'center',
     alignItems: 'center',
@@ -28,7 +28,6 @@ export default function TopArtists() {
   const { timeRange, timeRangeText, toggleTimeRange } = useToggleTimeRange();
   const [loading, setLoading] = useState(false);
   const [recommendations, setSeedforRecommendations] = useState(null);
-  const [profile, setProfile] = useState([]);
   const [artistData, setArtistData] = useState([]);
   useEffect(() => {
     const fetchTopArtists = async () => {
@@ -50,11 +49,11 @@ export default function TopArtists() {
           console.log(err);
         });
       setLoading(true);
-      const topArtistsId = response.data.items.map((artist) => artist.id);
-      const seeds = topArtistsId;
+      const topArtistsSeedsId = response.data.items.map((artist) => artist.id);
       // set random seed for recommendations from top artists
-      const randomSeed = seeds[(Math.random() * seeds.length) | 0];
-      setSeedforRecommendations(randomSeed);
+      const randomSeeds =
+        topArtistsSeedsId[(Math.random() * topArtistsSeedsId.length) | 0];
+      setSeedforRecommendations(randomSeeds);
       let topArtists = response.data.items.map((artist) => artist);
       setArtists(topArtists);
     };
@@ -69,7 +68,7 @@ export default function TopArtists() {
 
       const joinArtistSeeds = artistSeeds.split(',').join('%2C');
 
-      fetch(`${endpoint}?seed_artists=${joinArtistSeeds}`, {
+      fetch(`${endpoint}?seed_artists=${joinArtistSeeds}&min_popularity=45`, {
         method: 'GET',
 
         headers: {
@@ -83,10 +82,20 @@ export default function TopArtists() {
     };
     getRecommendations();
   }, [recommendations]);
-
   return (
-    <div>
-      <h2 style={{ textAlign: 'center' }}>Top Artists</h2>
+    <div style={{ margin: '20px', marginLeft: '10px', marginTop: '30px' }}>
+      <SectionWrapper
+        title="Top Genres"
+        seeAllLink="/"
+        titles="Top Artists"
+        seeAllLinks="/artists"
+        seeAllTracks="/tracks"
+        titleTracks="Top Tracks"
+        seeAllPlaylists="/playlists"
+        titlePlaylists="Top Playlists"
+        seeAllStarred="/starred"
+        seeStarredTracks="Starred Tracks"
+      />
       {artist.length === 0 ? (
         <h2 style={{ textAlign: 'center' }}>
           {' '}
@@ -99,53 +108,49 @@ export default function TopArtists() {
             timeRangeText={timeRangeText}
             style={style}
           />
+
           <div style={style.container}>
             {artist
               .map((data, i) => {
                 return (
                   <>
-                    <div
+                    <Link
+                      to={`/artists/${data.id}`}
+                      state={{ from: data }}
+                      key={data.id}
                       style={{
-                        textAlign: 'left',
-                        width: '50%',
-                        marginTop: '30px',
-                        listStyle: 'none',
-                        margin: '30px auto',
-                        padding: '0rem',
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-                        justifyContent: 'center',
+                        textDecoration: 'none',
+                        marginTop: '4rem',
                       }}
                     >
+                      <div
+                        style={{
+                          textAlign: 'left',
+                          width: '50%',
+                          marginTop: '-6rem',
+                          listStyle: 'none',
+                          margin: '30px auto',
+                          padding: '0rem',
+                          display: 'grid',
+                          gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 2fr))',
+                          justifyContent: 'center',
+                        }}
+                      />
                       <h4>
                         {i + 1} {data.name} {''}
                       </h4>
-                      <img
-                        style={{
-                          width: '35%',
-                          height: '80%',
-                          backgroundColor: 'darkgrey',
-                          margin: '.5em',
-                          borderRadius: '5%',
-                        }}
-                        src={data.images[2].url}
-                        alt={data.name}
-                      />
-
-                      <Link
-                        to={`/artists/${data.id}`}
-                        state={{ from: data }}
-                        key={data.id}
-                        style={{
-                          textDecoration: 'none',
-                          marginTop: '4rem',
-                        }}
-                      >
-                        <div>
-                          <h4 style={{ margin: '0 auto' }}> Profile</h4>
-                        </div>
-                      </Link>
-                    </div>
+                    </Link>
+                    <img
+                      style={{
+                        width: '45%',
+                        height: '80%',
+                        backgroundColor: 'darkgrey',
+                        margin: '.5em',
+                        borderRadius: '5%',
+                      }}
+                      src={data.images[2].url}
+                      alt={data.name}
+                    />
                   </>
                 );
               })

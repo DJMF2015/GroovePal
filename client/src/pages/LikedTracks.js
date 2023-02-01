@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import SectionWrapper from '../components/SectionWrapper';
 import Spotify from '../utils/SpotifyPlayer';
 import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
@@ -66,6 +67,18 @@ export default function Likedtracks() {
 
   return (
     <div className="background">
+      <SectionWrapper
+        title="Top Genres"
+        seeAllLink="/"
+        titles="Top Artists"
+        seeAllLinks="/artists"
+        seeAllTracks="/tracks"
+        titleTracks="Top Tracks"
+        seeAllPlaylists="/playlists"
+        titlePlaylists="Top Playlists"
+        seeAllStarred="/starred"
+        seeStarredTracks="Starred Tracks"
+      />
       <h2>Tracks: {likedtracks.length}</h2>
       {likedtracks &&
         likedtracks.map((track, i) => (
@@ -91,9 +104,10 @@ export default function Likedtracks() {
             <Spotify
               link={track.track.external_urls.spotify}
               style={{
-                width: '70%',
-                height: '5rem',
+                width: '80%',
+                height: '100px',
                 marginTop: '1rem',
+                border: '1px solid black',
               }}
             />
           </>

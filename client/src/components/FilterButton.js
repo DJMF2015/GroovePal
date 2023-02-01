@@ -1,12 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
+import SectionWrapper from './SectionWrapper';
 export default function GenreFilterButton(props) {
   return (
     <div>
+      <br></br>
+
+      <SectionWrapper
+        title="Top Genres"
+        seeAllLink="/"
+        titles="Top Artists"
+        seeAllLinks="/artists"
+        seeAllTracks="/tracks"
+        titleTracks="Top Tracks"
+        seeAllPlaylists="/playlists"
+        titlePlaylists="Top Playlists"
+        seeAllStarred="/starred"
+        seeStarredTracks="Starred Tracks"
+      />
+
       <StyledInputField
         type="text"
         onBeforeInput={(e) => props.renderSearch(e.target.value)}
-        placeholder="Search Artist"
+        placeholder="Search Track..."
       />
 
       {props.genre
@@ -18,11 +34,9 @@ export default function GenreFilterButton(props) {
                 display: 'inline',
                 margin: '10px',
                 justifyContent: 'center',
-                padding: '9px',
-                width: '100px',
-                height: '60px',
+                padding: '10px',
                 fontSize: '18px',
-                backgroundColor: 'ghostwhite',
+                backgroundColor: 'black',
                 borderRadius: '10px',
               }}
               onSubmit={props.searchArtists}
@@ -30,12 +44,15 @@ export default function GenreFilterButton(props) {
               <button
                 key={option.index}
                 style={{
-                  padding: '5px',
+                  padding: '10px',
+                  color: 'white',
                   fontSize: '16px',
-                  margin: '10px',
-                  marginTop: '1rem',
-                  backgroundColor: 'ghostwhite',
-                  border: '1px solid white',
+                  width: '200px',
+                  margin: '8px',
+                  marginTop: '.5rem',
+                  boxShadow: '1px 2px 5px 1px white',
+                  backgroundColor: 'black',
+                  border: '2px solid white',
                 }}
                 id={option}
                 value={option[0]}
@@ -58,8 +75,8 @@ const StyledInputField = styled.input`
   margin-top: 1rem;
   margin-bottom: 2rem;
   display: flex;
-  margin: 20px 0 40px 40px;
-  width: 12rem;
+  margin: 0px 0 40px 160px;
+  width: 14rem;
   box-sizing: border-box;
   border: 2px solid white;
   border-radius: 20px;

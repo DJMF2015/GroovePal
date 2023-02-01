@@ -38,7 +38,7 @@ const RecommendationsCard = (props) => {
           margin: '1rem auto',
           marginLeft: '80vw',
           backgroundColor: 'green',
-          color: 'black',
+          color: 'white',
           font: 'Roboto',
           fontSize: '1rem',
           border: '3px solid black',
@@ -52,8 +52,10 @@ const RecommendationsCard = (props) => {
         props.artistData?.tracks.map((track, i) => (
           <>
             <p> {track?.name}</p>
-            <p>popularity: {track?.popularity}</p>
-            <SpotifyPreview link={track.external_urls?.spotify} />
+            <SpotifyPreview
+              style={{ border: '1px solid black', width: '400px' }}
+              link={track.external_urls?.spotify}
+            />
           </>
         ))}
     </div>

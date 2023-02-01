@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
   *,
   *:before,
   *:after {
-    box-sizing: inherit;
+    /* box-sizing: inherit; */
   }
   body {
     margin: 0;
@@ -86,7 +86,7 @@ const GlobalStyle = createGlobalStyle`
   }
   .overflow-ellipsis {
     -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
+    /* -webkit-box-orient: vertical; */
     display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;

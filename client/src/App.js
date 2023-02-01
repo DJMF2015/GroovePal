@@ -3,7 +3,7 @@ import Layout from './pages/Layout';
 import styled from 'styled-components/macro';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import PlayList from './pages/Playlist';
+import PlayList from './pages/UserGenres';
 import TopTracks from './pages/TopTracks';
 import UserPlaylists from './pages/Playlists';
 import Login from './pages/Login';
@@ -12,8 +12,6 @@ import useAuth from './hooks/useAuth';
 import ArtistDetailsCard from './components/ArtistCard';
 import Likedtracks from './pages/LikedTracks';
 import TopArtists from './pages/TopArtists';
-import StyledHeader from './styles/StyledHeader';
-
 function App() {
   const { spotifyToken, profile } = useAuth();
   const [token, setToken] = useState(null);
@@ -32,16 +30,18 @@ function App() {
         <>
           <BrowserRouter>
             <GlobalStyle />
+
             <StyledLogoutButton onClick={() => (window.location = '/logout')}>
               {' '}
               Logout{' '}
             </StyledLogoutButton>
+
             <Routes>
               <Route path="/" element={<Layout />}>
-                <Route path="/" element={<PlayList />} />
+                <Route path="/" element={<PlayList profile={profile} />} />
                 <Route path="/tracks" element={<TopTracks />} />
                 <Route path="/playlists" element={<UserPlaylists />} />
-                <Route path="/saved" element={<Likedtracks />} />
+                <Route path="/starred" element={<Likedtracks />} />
                 <Route path="/artists" element={<TopArtists />} />
                 <Route path="/artists/:id" element={<ArtistDetailsCard />} />
               </Route>

@@ -1,10 +1,9 @@
-// import { formatDuration } from '../utils/utils';
+import { formatDuration } from '../utils/Helpers';
 import StyledTrackList from '../styles/StyledTrackList';
 import SpotifyPreview from '../utils/SpotifyPreview';
 import React from 'react';
 
 const TrackList = ({ tracks }) => {
-  console.log({ tracks });
   return (
     <>
       {tracks && tracks.length ? (
@@ -12,18 +11,21 @@ const TrackList = ({ tracks }) => {
           {tracks.map((track, i) => (
             <li className="track__item" key={i}>
               <div className="track__item__num">{i + 1}</div>
-
-              <SpotifyPreview
-                style={{
-                  width: '400px',
-                  height: '90px',
-                  border: '1px solid black',
-                  overflow: 'none',
-                  scroll: 'none',
-                  overflowX: 'hidden',
-                }}
-                link={track.external_urls.spotify}
-              />
+              {track.external_urls.spotify ? (
+                <SpotifyPreview
+                  style={{
+                    width: '400px',
+                    height: '90px',
+                    border: '1px solid black',
+                    overflow: 'none',
+                    scroll: 'none',
+                    overflowX: 'hidden',
+                  }}
+                  link={track.external_urls.spotify}
+                />
+              ) : (
+                <p>Sorry - No preview available</p>
+              )}
 
               <div className="track__item__title-group">
                 {track.album.images.length && track.album.images[2] && (
@@ -49,10 +51,7 @@ const TrackList = ({ tracks }) => {
                 {track.album.name}
               </div>
               <div className="track__item__duration">
-                {(track.duration_ms / 100000)
-                  .toFixed(2)
-                  .replace('.', ':')
-                  .concat(' mins')}
+                {formatDuration(track.duration_ms)}
               </div>
             </li>
           ))}

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { SectionWrapper } from '../components';
 import Spotify from '../utils/SpotifyPlayer';
+import { Link } from 'react-router-dom';
 import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
 export default function Playlists(props) {
@@ -34,15 +36,40 @@ export default function Playlists(props) {
 
   return (
     <>
+      <SectionWrapper
+        title="Top Genres"
+        seeAllLink="/"
+        titles="Top Artists"
+        seeAllLinks="/artists"
+        seeAllTracks="/tracks"
+        titleTracks="Top Tracks"
+        seeAllPlaylists="/playlists"
+        titlePlaylists="Top Playlists"
+        seeAllStarred="/starred"
+        seeStarredTracks="Starred Tracks"
+      />
       <div className="background" style={style.container}>
         {items &&
-          items.map((playlistid, i) => (
-            <div style={{ margin: '0 auto', textAlign: 'center' }}>
-              <h3> {playlistid.name}</h3>
+          items.map((playlist, i) => (
+            <div style={{ margin: '1px auto', textAlign: 'center' }}>
+              {/* <h3> {playlist.name}</h3> */}
 
-              <h3>{playlistid.owner.display_name}</h3>
+              <Link
+                to={`/playlists/${playlist.id}`}
+                state={{ from: playlist }}
+                key={playlist.id}
+                style={{
+                  textDecoration: 'none',
+                }}
+              >
+                <img
+                  src={playlist.images[0].url}
+                  alt="playlist"
+                  style={{ width: '150px', margin: '10px auto' }}
+                />
+              </Link>
 
-              <Spotify style={{ width: '' }} link={playlistid.external_urls.spotify} />
+              {/* <Spotify style={{ width: '' }} link={playlist.external_urls.spotify} /> */}
             </div>
           ))}
       </div>

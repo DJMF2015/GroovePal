@@ -41,9 +41,24 @@ const TracksButton = ({ setTracks }) => {
   return (
     <>
       <TimeRangeButton onClick={toggleTimeRange} timeRangeText={timeRangeText} />
-      <SectionWrapper title="Top tracks" seeAllLink="/tracks">
-        <TrackList tracks={tracks} />
-      </SectionWrapper>
+      <br></br>
+      <br></br>
+      <main>
+        <SectionWrapper
+          title="Top Genres"
+          seeAllLink="/"
+          titles="Top Artists"
+          seeAllLinks="/artists"
+          seeAllTracks="/tracks"
+          titleTracks="Top Tracks"
+          seeAllPlaylists="/playlists"
+          titlePlaylists="Top Playlists"
+          seeAllStarred="/starred"
+          seeStarredTracks="Starred Tracks"
+        >
+          <TrackList tracks={tracks} />
+        </SectionWrapper>
+      </main>
     </>
   );
 };

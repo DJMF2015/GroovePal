@@ -4,10 +4,11 @@ const StyledRangeButtons = styled.ul`
   display: flex;
   justify-content: space-between;
   list-style: none;
-  /* margin: 0 0 var(--spacing-lg) 0; */
-  margin-top: 8em;
+  margin-top: 8rem;
   button {
-    width: 100px;
+    width: 15em;
+    margin-left: 60px;
+    color: var(--white);
     background-color: var(--green);
     &:hover,
     &:focus {
@@ -30,7 +31,8 @@ const StyledRangeButtons = styled.ul`
         margin-right: 0;
       }
       button {
-        width: 100px;
+        width: 10em;
+        color: var(--white);
         background-color: var(--green);
         &:hover,
         &:focus {
