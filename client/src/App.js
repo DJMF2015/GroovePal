@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import { GlobalStyle } from './styles';
 import useAuth from './hooks/useAuth';
 import ArtistDetailsCard from './components/ArtistCard';
+import PlaylistCard from './components/PlaylistCard';
 import Likedtracks from './pages/LikedTracks';
 import TopArtists from './pages/TopArtists';
 function App() {
@@ -41,6 +42,7 @@ function App() {
                 <Route path="/" element={<PlayList profile={profile} />} />
                 <Route path="/tracks" element={<TopTracks />} />
                 <Route path="/playlists" element={<UserPlaylists />} />
+                <Route path="/playlists/:id" element={<PlaylistCard />} />
                 <Route path="/starred" element={<Likedtracks />} />
                 <Route path="/artists" element={<TopArtists />} />
                 <Route path="/artists/:id" element={<ArtistDetailsCard />} />

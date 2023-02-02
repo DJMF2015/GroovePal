@@ -5,7 +5,6 @@ const SectionWrapper = ({
   children,
   title,
   seeAllLink,
-  breadcrumb,
   seeAllLinks,
   seeAllTracks,
   titleTracks,

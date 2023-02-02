@@ -1,14 +1,31 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
+import { useNavigate } from 'react-router-dom';
+import CreatePlaylistButton from './CreatePlaylistBtn';
 import TimeRangeButton from '../components/TimeRangeButton';
 import SectionWrapper from './SectionWrapper';
 import TrackList from './TrackList';
 import useToggleTimeRange from '../hooks/useTimeRange';
 const spotifyApi = new SpotifyWebApi();
-const TracksButton = ({ setTracks }) => {
+
+const styles = {
+  button: {
+    color: 'white',
+    margin: '1em 2em 2em -5em',
+    backgroundColor: 'black',
+    padding: '1rem',
+    width: '10rem',
+    font: 'Roboto',
+    fontSize: '1rem',
+    borderRadius: '5rem',
+    border: '1px solid white',
+  },
+};
+const TracksButton = ({ setTracks, createTopTracksPlaylist }) => {
   const { timeRange, timeRangeText, toggleTimeRange } = useToggleTimeRange();
   const [tracks, setTopTracks] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const access_token = spotifyApi.getAccessToken();
 
   const fetchData = useCallback(async () => {
@@ -21,7 +38,6 @@ const TracksButton = ({ setTracks }) => {
         params: {
           limit: 50,
           offset: 0,
-          time_range: timeRange,
         },
       }
     );
@@ -43,6 +59,10 @@ const TracksButton = ({ setTracks }) => {
       <TimeRangeButton onClick={toggleTimeRange} timeRangeText={timeRangeText} />
       <br></br>
       <br></br>
+      <button style={styles.button} onClick={() => navigate(-1)}>
+        Go Back
+      </button>
+      <CreatePlaylistButton onClick={createTopTracksPlaylist} />
       <main>
         <SectionWrapper
           title="Top Genres"

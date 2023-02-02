@@ -4,6 +4,7 @@ import SpotifyWebApi from 'spotify-web-api-js';
 import TimeRangeButton from '../components/TimeRangeButton';
 import useToggleTimeRange from '../hooks/useTimeRange';
 import { SectionWrapper } from '../components';
+import BackButton from '../components/BackButton';
 import { Link } from 'react-router-dom';
 import RecommendationsCard from '../components/RecommendationsCard';
 const spotifyApi = new SpotifyWebApi();
@@ -74,25 +75,31 @@ export default function TopArtists() {
   }, [timeRange]);
 
   useEffect(() => {
+    // get recommendations from seed data from top artists
     const getRecommendations = async () => {
       const endpoint = 'https://api.spotify.com/v1/recommendations';
       const artistSeeds = encodeURIComponent(recommendations);
       const joinArtistSeeds = artistSeeds.split(',').join('%2C');
 
-      fetch(`${endpoint}?seed_artists=${joinArtistSeeds}&min_popularity=45`, {
+      await fetch(`${endpoint}?seed_artists=${joinArtistSeeds}&min_popularity=45`, {
         method: 'GET',
-
         headers: {
           Authorization: `Bearer ${spotifyApi.getAccessToken()}`,
         },
       }).then((response) =>
-        response.json().then((data) => {
-          setArtistData(data);
-        })
+        response
+          .json()
+          .then((data) => {
+            setArtistData(data);
+          })
+          .catch((error) => {
+            console.log('unable to retrieve recommendation from seed data' + error);
+          })
       );
     };
     getRecommendations();
   }, [recommendations]);
+
   return (
     <div style={{ margin: '20px', marginLeft: '10px', marginTop: '30px' }}>
       <SectionWrapper
@@ -107,6 +114,7 @@ export default function TopArtists() {
         seeAllStarred="/starred"
         seeStarredTracks="Starred Tracks"
       />
+      <BackButton />
       {artist.length === 0 ? (
         <h2 style={{ textAlign: 'center' }}>
           {' '}

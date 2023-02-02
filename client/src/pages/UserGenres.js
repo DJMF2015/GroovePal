@@ -1,8 +1,7 @@
-// import logo from './logo.svg';
 import '../App.css';
 import axios from 'axios';
 import Artists from './Artists';
-import GenreFilterButton from '../components/FilterButton';
+import GenreFilterButton from '../components/GenreFilterButton';
 import React, { useState } from 'react';
 import TimeRangeButton from '../components/TimeRangeButton';
 import useToggleTimeRange from '../hooks/useTimeRange';
@@ -36,6 +35,7 @@ const PlayList = () => {
   };
 
   const renderGenre = (e) => {
+    console.log(e);
     setSearchKey(e);
   };
 

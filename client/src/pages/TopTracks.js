@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import TodayDate from '../utils/Date';
 import SpotifyWebApi from 'spotify-web-api-js';
-import CreatePlaylistButton from '../components/CreatePlaylistBtn';
 import TopTracksButton from '../components/TopTracksButton';
 const spotifyApi = new SpotifyWebApi();
 
@@ -32,26 +31,10 @@ const TopTracks = () => {
   return (
     <>
       <div className="background">
-        <div
-          className="tooltip"
-          style={{
-            margin: '10px 15px',
-            border: '3px solid black',
-            borderRadius: '8px',
-            backgroundColor: 'white',
-            padding: '1px 8px',
-            color: 'black',
-          }}
-        >
-          &#33;
-          <span className="tooltiptext">
-            {' '}
-            Select Create Playlist to save all top tracks to your Spotify account
-          </span>
-        </div>
-
-        <CreatePlaylistButton onClick={createTopTracksPlaylist} />
-        <TopTracksButton setTracks={setTracks} />
+        <TopTracksButton
+          setTracks={setTracks}
+          createTopTracksPlaylist={createTopTracksPlaylist}
+        />
       </div>
     </>
   );

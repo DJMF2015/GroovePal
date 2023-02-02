@@ -1,23 +1,20 @@
 import React from 'react';
-import Spotify from '../utils/SpotifyPlayer';
+import { Link } from 'react-router-dom';
 export default function Artists(props) {
   return props.playlist
 
     .map((playlist, i) => (
       <>
         <div key={playlist.id}>
-          <p style={{ margin: '0px', fontSize: '28px', padding: '.5em' }}>
-            {' '}
-            {playlist.name}
-          </p>
+          <p style={{ margin: '0px', fontSize: '28px', padding: '.5em' }}> </p>
 
           <br></br>
-          <Spotify
-            style={{ width: '50%', height: '400px' }}
-            link={playlist.external_urls.spotify}
-          />
+
+          <Link to={`/playlists/${playlist.id}`} state={{ from: playlist }}>
+            <img src={playlist.images[0].url} alt="playlist" style={{ width: '100px' }} />
+          </Link>
         </div>
       </>
     ))
-    .slice(0, 1);
+    .slice(0, 3);
 }

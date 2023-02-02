@@ -15,7 +15,7 @@ export default function Likedtracks() {
       let offset = 0;
       const savedTracks = [];
 
-      // loop through savedTracks until no more pages and concatanate results
+      // loop through savedTracks until no more pages of results are returned
       const baseUrl = 'https://api.spotify.com/v1/me/tracks?';
       let lastResult = [];
       do {
@@ -41,11 +41,12 @@ export default function Likedtracks() {
           data.items.forEach((item) => {
             savedTracks.push(item);
           });
-          offset += 50; // increment offset by 50 to get next page of results
+          offset += 50; // increment offset by 50 to get next page
         } catch (error) {
           console.log(error);
         }
       } while (
+        // check if there is a next page of results
         lastResult.next !== null &&
         lastResult.next !== undefined &&
         lastResult.next !== ''

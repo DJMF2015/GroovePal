@@ -33,11 +33,9 @@ const generateRandomString = function (length) {
 const stateKey = 'spotify_auth_state';
 
 app.use(cors()).use(cookieParser());
-
 app.get('/login', function (req, res) {
-  let state = generateRandomString(16);
+  let state = generateRandomString(256);
   res.cookie(stateKey, state);
-
   // your application requests authorization
   const scope =
     'playlist-modify-private playlist-read-collaborative playlist-read-private playlist-modify-public user-read-private user-read-email user-read-playback-state user-top-read user-library-read user-read-recently-played';
