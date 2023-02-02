@@ -12,7 +12,7 @@ const RecommendationsCard = (props) => {
     await spotifyApi.createPlaylist(me.id, {
       name: playlistName,
       public: true,
-      description: `${me.display_name} Top Tracks  `,
+      description: `${me.display_name} Recommendations - ${TodayDate()}  `,
     });
 
     const playlists = await spotifyApi.getUserPlaylists(me.id);

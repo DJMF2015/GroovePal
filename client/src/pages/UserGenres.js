@@ -3,7 +3,7 @@ import '../App.css';
 import axios from 'axios';
 import Artists from './Artists';
 import GenreFilterButton from '../components/FilterButton';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import TimeRangeButton from '../components/TimeRangeButton';
 import useToggleTimeRange from '../hooks/useTimeRange';
 import useTopArtists from '../hooks/useTopArtists';
@@ -13,10 +13,8 @@ const spotifyApi = new SpotifyWebApi();
 
 const PlayList = () => {
   const [searchKey, setSearchKey] = useState();
-  const [artists, setArtists] = useState([]);
   const { timeRange, timeRangeText, toggleTimeRange } = useToggleTimeRange();
   const [playlist, setPlaylist] = useState([]);
-  const [profile, setProfile] = useState([]);
   const [tracks, setTracks] = useState([]);
 
   const access_token = spotifyApi.getAccessToken();
@@ -33,7 +31,7 @@ const PlayList = () => {
         type: 'track,artist,playlist',
       },
     });
-    // setArtists(data.artists.items);
+
     setPlaylist(data.playlists.items);
   };
 
@@ -52,18 +50,21 @@ const PlayList = () => {
         type: 'track,artist,playlist',
       },
     });
-    setArtists(data.artists.items);
     setTracks(data.tracks.items);
   };
   // const
-  if (!genre) {
-    <h2>Not enough information</h2>;
-  }
+
   return (
     <>
       <div className="background">
+        <GenreFilterButton
+          genre={genre}
+          renderGenre={renderGenre}
+          renderSearch={renderSearch}
+          searchArtists={searchArtists}
+        />
         {genre.length === 0 ? (
-          <h2>Sorry - Not enough data. Try back later.</h2>
+          <h2>Sorry - Not enough data. Try back later to discover your top genres :(</h2>
         ) : (
           <>
             <TimeRangeButton
@@ -71,31 +72,25 @@ const PlayList = () => {
               timeRangeText={timeRangeText}
               timeRanges={timeRanges}
             />
-            <>
-              <GenreFilterButton
-                genre={genre}
-                renderGenre={renderGenre}
-                renderSearch={renderSearch}
-                searchArtists={searchArtists}
-              />
 
-              <Artists playlist={playlist} />
-            </>
+            <Artists playlist={playlist} />
           </>
         )}
         <br></br>
         <div className="background">
           {tracks &&
-            tracks.map((track, i) => (
-              <>
-                <p>{track.name}</p>
+            tracks
+              .map((track, i) => (
+                <>
+                  <p>{track.name}</p>
 
-                <SpotifyPreview
-                  style={{ width: '200px', height: '100px', border: '1px solid black' }}
-                  link={track.external_urls.spotify}
-                />
-              </>
-            ))}
+                  <SpotifyPreview
+                    style={{ width: '200px', height: '100px', border: '1px solid black' }}
+                    link={track.external_urls.spotify}
+                  />
+                </>
+              ))
+              .slice(0, 5)}
         </div>
       </div>
     </>

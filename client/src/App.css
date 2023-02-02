@@ -1,54 +1,3 @@
-/* .App {
-  text-align: center;
-}
- 
- ul {
-   list-style-type: none;
-   
-   padding: 4rem;
-   overflow: hidden;
-   background-color: black;
-   margin-bottom: -3rem;
-   z-index: 1; 
- }
-  
- li {
-   display: inline-flex;
-   margin-left: 10vw;  
-
- }
- 
- li a {
-  
-   color: white;
-   text-align: center;
-   font-family: Verdana, Geneva, Tahoma, sans-serif;
-   padding: 14px 16px;
-   text-decoration: none;
- }
-
- li a:hover:not(.active) {
-   background-color: rgb(253, 251, 251);
-   border: none;
-   color: black;
-   border-radius: 50px;
-  box-shadow: 10px 5px 15px 5px rgba(224, 216, 216, 0.75);
-  text-decoration: none;
- }
- 
-  
-a, .App-link {
-  color: white;
-  font-size: 22px;
-}
- 
-/* button{
-    margin: 10px;
-    margin-top: 1rem;  
-    border-radius: 50px;
-    padding: 1rem;
-    
-} */
  
  
 div, p{
@@ -66,4 +15,43 @@ body{
 
     box-sizing: none;
 }   
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      border-bottom: 1px dotted black;
+        
+    }
   
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+     
+      background-color: rgb(62, 59, 59);
+      color: #fff;
+      text-align: center;
+      border-radius: 15px;
+      padding: 0px 0;
+      position: absolute;
+      z-index: 1;
+      bottom: -90%;
+      left: -600%; 
+      opacity: 0; 
+      transition: opacity 0.5s;
+    }
+  
+    .tooltip .tooltiptext::after {
+      content: "";
+      position: absolute;
+      margin-top: '10px';
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #555 transparent transparent transparent;
+    }
+  
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }

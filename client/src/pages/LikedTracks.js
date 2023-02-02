@@ -50,10 +50,7 @@ export default function Likedtracks() {
         lastResult.next !== undefined &&
         lastResult.next !== ''
       );
-      //sort tracks by date added
-      savedTracks.sort((a, b) => {
-        return new Date(b.added_at) - new Date(a.added_at);
-      });
+
       setMyLikedTracks(savedTracks);
       setLoading(false);
     };

@@ -75,7 +75,7 @@ const StyledInputField = styled.input`
   margin-top: 1rem;
   margin-bottom: 2rem;
   display: flex;
-  margin: 0px 0 40px 160px;
+  margin: 0px 0 40px 100px;
   width: 14rem;
   box-sizing: border-box;
   border: 2px solid white;

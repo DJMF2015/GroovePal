@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { SectionWrapper } from '../components';
-import Spotify from '../utils/SpotifyPlayer';
 import { Link } from 'react-router-dom';
 import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
@@ -23,7 +22,6 @@ export default function Playlists(props) {
   useEffect(() => {
     spotifyApi.getUserPlaylists({ limit: 50 }).then(
       function (data) {
-        console.log('Retrieved playlists', data.items);
         const items = data.items;
 
         setPlaylistName(items);
@@ -52,8 +50,6 @@ export default function Playlists(props) {
         {items &&
           items.map((playlist, i) => (
             <div style={{ margin: '1px auto', textAlign: 'center' }}>
-              {/* <h3> {playlist.name}</h3> */}
-
               <Link
                 to={`/playlists/${playlist.id}`}
                 state={{ from: playlist }}
@@ -68,8 +64,6 @@ export default function Playlists(props) {
                   style={{ width: '150px', margin: '10px auto' }}
                 />
               </Link>
-
-              {/* <Spotify style={{ width: '' }} link={playlist.external_urls.spotify} /> */}
             </div>
           ))}
       </div>

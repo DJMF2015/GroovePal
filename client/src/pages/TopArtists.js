@@ -11,14 +11,26 @@ const spotifyApi = new SpotifyWebApi();
 const style = {
   container: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(6, 1fr)',
+    gridTemplateColumns: 'repeat(8, 1fr)',
     gridGap: '1rem',
     gridAutoRows: 'minmax(100px, auto)',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: '6vw',
+    margin: '5vw',
     textAlign: 'center',
     padding: '0rem',
+  },
+
+  imgTile: {
+    textAlign: 'left',
+    width: '50%',
+    marginTop: '-6rem',
+    listStyle: 'none',
+    margin: '30px auto',
+    padding: '0rem',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 2fr))',
+    justifyContent: 'center',
   },
 };
 
@@ -65,7 +77,6 @@ export default function TopArtists() {
     const getRecommendations = async () => {
       const endpoint = 'https://api.spotify.com/v1/recommendations';
       const artistSeeds = encodeURIComponent(recommendations);
-
       const joinArtistSeeds = artistSeeds.split(',').join('%2C');
 
       fetch(`${endpoint}?seed_artists=${joinArtistSeeds}&min_popularity=45`, {
@@ -127,30 +138,15 @@ export default function TopArtists() {
                         style={{
                           textAlign: 'left',
                           width: '50%',
-                          marginTop: '-6rem',
+                          marginTop: '-4.5rem',
                           listStyle: 'none',
-                          margin: '30px auto',
-                          padding: '0rem',
-                          display: 'grid',
-                          gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 2fr))',
-                          justifyContent: 'center',
                         }}
                       />
                       <h4>
                         {i + 1} {data.name} {''}
                       </h4>
                     </Link>
-                    <img
-                      style={{
-                        width: '45%',
-                        height: '80%',
-                        backgroundColor: 'darkgrey',
-                        margin: '.5em',
-                        borderRadius: '5%',
-                      }}
-                      src={data.images[2].url}
-                      alt={data.name}
-                    />
+                    <img style={style.imgTile} src={data.images[2].url} alt={data.name} />
                   </>
                 );
               })
