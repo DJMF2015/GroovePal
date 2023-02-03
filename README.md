@@ -20,8 +20,21 @@ Clone the repository and install its dependencies running:
     $ npm install at both the root folder and the client folder.
     $ npm start thereafter from the root folder to run both server and client
 
+<p align="left">
+  <img src="usergenres.jpg"  title="genres">
 
-    
- 
+  <img src="recommendations.jpg"  title="recommendations">
+
+  <img src="tracks.jpg"  title="track">
+</p>
+
+##### TO-DO
+ - Add range slider widget to recommendations endpoint to allow user to customise
+ - remove axios as a dependency and replace with fetch
+ - remove spotify-web-api-js package and replace with spotify api http endpoints
+ - Modify authorization workflow to use PKCE
+ - add rate limiting to server
+ - Clean-up styling and refactor inline and css-in-jsx to styled components
+
  
  
