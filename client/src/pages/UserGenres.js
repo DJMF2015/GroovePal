@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import TimeRangeButton from '../components/TimeRangeButton';
 import useToggleTimeRange from '../hooks/useTimeRange';
 import StyledHeader from '../styles/StyledHeader';
-// import useAuth from '../hooks/useAuth';
+import useShuffle from '../hooks/useShuffle';
 import useTopArtists from '../hooks/useTopArtists';
 import SearchBar from '../components/SearchBar';
 import SpotifyWebApi from 'spotify-web-api-js';
@@ -21,6 +21,7 @@ const PlayList = (props) => {
 
   const access_token = spotifyApi.getAccessToken();
   const { genre, timeRanges } = useTopArtists(timeRange);
+  useShuffle(playlist); // shuffle the order of playlists based on the genre
 
   const searchArtists = async (e) => {
     e.preventDefault();
@@ -55,7 +56,6 @@ const PlayList = (props) => {
     });
     setTracks(data.tracks.items);
   };
-  // const
 
   return (
     <>
@@ -109,6 +109,7 @@ const PlayList = (props) => {
           </>
         )}
         <br></br>
+
         <div className="background">
           {tracks &&
             tracks
