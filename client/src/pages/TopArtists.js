@@ -117,7 +117,7 @@ export default function TopArtists() {
         seeAllStarred="/starred"
         seeStarredTracks="Starred Tracks"
       />
-      <BackButton />
+      <BackButton style={{ marginLeft: '-10em' }} />
       {artist.length === 0 ? (
         <h2 style={{ textAlign: 'center', fontSize: '28px' }}>
           {' '}

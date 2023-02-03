@@ -11,7 +11,7 @@ const spotifyApi = new SpotifyWebApi();
 const styles = {
   button: {
     color: 'white',
-    margin: '1em 2em 2em -5em',
+    margin: '1em 2em 2em -15em',
     backgroundColor: 'black',
     padding: '1rem',
     width: '10rem',
@@ -53,7 +53,7 @@ const TracksButton = ({ setTracks, createTopTracksPlaylist }) => {
     fetchData();
   }, [fetchData]);
   if (tracks.length === 0) {
-    return <p>Sorry not enough data.... &#128577;</p>;
+    return <p>Sorry not enough data....</p>;
   }
   return (
     <>
