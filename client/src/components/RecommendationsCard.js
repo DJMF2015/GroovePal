@@ -30,7 +30,9 @@ const RecommendationsCard = ({ artistData }) => {
   };
   return (
     <div className="background">
-      <h1 style={{ textAlign: 'center', color: 'red' }}>Recommendations</h1>
+      <h1 style={{ textAlign: 'center', color: 'red', marginTop: '-4rem' }}>
+        Recommendations
+      </h1>
 
       <CreatePlaylistButton onClick={createTopTracksPlaylist} />
       {artistData?.tracks &&

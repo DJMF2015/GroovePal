@@ -6,6 +6,7 @@ const StyledSection = styled.section`
       padding-top: 15px;
     }
   }
+
   .section__inner {
     width: 100%;
     max-width: var(--site-max-width);
@@ -16,6 +17,7 @@ const StyledSection = styled.section`
       padding: var(--spacing-xl) var(--spacing-xxl);
     }
   }
+
   .section__top {
     display: flex;
     justify-content: space-between;
@@ -51,6 +53,13 @@ const StyledSection = styled.section`
     font-weight: 700;
     letter-spacing: 0.1em;
     padding-bottom: 2px;
+  }
+
+  a {
+    &:hover,
+    &:focus {
+      color: var(--red);
+    }
   }
 `;
 

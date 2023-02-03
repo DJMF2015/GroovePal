@@ -6,14 +6,12 @@ const StyledHeader = styled.header`
   position: relative;
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.3));
   background-color: var(--grey);
-  /* max-height: 500px;
-  min-height: 250px; */
   ul {
     list-style: none;
   }
   li {
     display: inline-flex;
-    margin-left: 5em;
+    margin-left: 0em;
     padding: 0px;
     margin-bottom: 3rem;
     font-size: 22px;
@@ -34,7 +32,6 @@ const StyledHeader = styled.header`
   }
 
   @media (min-width: 768px) {
-    /* min-height: 340px; */
     li {
       font-size: 20px;
       padding: 10px;
@@ -53,13 +50,13 @@ const StyledHeader = styled.header`
     z-index: -1;
   }
   .header__inner {
-    /* /* display: flex; */
-    align-items: flex-end;
-    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    width: 50%;
     max-width: var(--site-max-width);
-    margin: 0 auto;
+    /* margin: 0 auto; */
     @media (min-width: 768px) {
-      padding: var(--spacing-lg) var(--spacing-xs);
+      padding: 1em var(--spacing-xs);
     }
   }
   img.header__img {
@@ -74,38 +71,13 @@ const StyledHeader = styled.header`
       margin-right: var(--spacing-xl);
     }
   }
-  .header__overline {
-    text-transform: uppercase;
-    font-size: var(--fz-xxs);
-    font-weight: 700;
-    margin-bottom: var(--spacing-xs);
-  }
+
   h1.header__name {
-    font-size: clamp(2.5rem, 10vw, 6rem); // 40px to 96px
-    font-weight: 900;
+    font-size: clamp(2.5rem, 10vw, 6rem); //
     line-height: 1;
-    margin: 0 0 var(--spacing-xs) 0;
+    margin: 10px 0 var(--spacing-xs) 0;
     @media (min-width: 768px) {
       margin: 0 0 var(--spacing-xs) -5px;
-    }
-  }
-  .header__meta {
-    display: flex;
-    align-items: center;
-    font-size: var(--fz-sm);
-    color: var(--light-grey);
-    margin: 0;
-    span {
-      display: flex;
-      align-items: center;
-      &:not(:last-of-type)::after {
-        //set the content of the last span to nothing
-        content: '•';
-        display: block;
-        margin: 0 var(--spacing-xs);
-        color: var(--light-grey);
-        font-size: 8px;
-      }
     }
   }
 `;

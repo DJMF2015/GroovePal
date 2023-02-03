@@ -6,7 +6,7 @@ export default function BackButton({ onClick }) {
     button: {
       color: 'white',
       backgroundColor: 'black',
-      border: 'none',
+      border: '1px solid white',
       padding: '1rem',
       width: '10rem',
       margin: '1em 8em -5em',

@@ -18,7 +18,6 @@ const useAuth = () => {
       setLoggedIn(true);
     }
   }, [profile, loggedIn, spotifyToken]);
-  console.log({ profile });
   return { spotifyToken, loggedIn, profile };
 };
 export default useAuth;

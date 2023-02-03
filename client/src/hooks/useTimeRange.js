@@ -15,5 +15,6 @@ export default function useToggleTimeRange() {
       setTimeRangeText('All Time');
     }
   };
+
   return { timeRange, timeRangeText, toggleTimeRange };
 }

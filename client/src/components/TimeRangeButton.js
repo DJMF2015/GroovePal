@@ -5,6 +5,15 @@ const TimeRangeButton = ({ timeRangeText, onClick }) => {
     <>
       <StyledTimeRange>
         <li>
+          <div
+            className="tooltip"
+            style={{ fontSize: '22px', position: 'absolute', left: '2rem' }}
+          >
+            &#x24D8;
+            <span className="tooltiptext">
+              Toggle between short, medium & long term time ranges
+            </span>
+          </div>
           <button onClick={onClick}>{timeRangeText}</button>
         </li>
       </StyledTimeRange>

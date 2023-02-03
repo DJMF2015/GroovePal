@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { StyledSection } from '../styles';
 
 const SectionWrapper = ({

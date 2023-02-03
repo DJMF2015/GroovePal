@@ -26,6 +26,7 @@ const TracksButton = ({ setTracks, createTopTracksPlaylist }) => {
   const [tracks, setTopTracks] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
   const access_token = spotifyApi.getAccessToken();
 
   const fetchData = useCallback(async () => {
@@ -52,7 +53,7 @@ const TracksButton = ({ setTracks, createTopTracksPlaylist }) => {
     fetchData();
   }, [fetchData]);
   if (tracks.length === 0) {
-    return <p>Sorry not enough data....</p>;
+    return <p>Sorry not enough data.... &#128577;</p>;
   }
   return (
     <>

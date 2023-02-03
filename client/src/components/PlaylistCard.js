@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import React from 'react';
 import BackButton from './BackButton';
-import Spotify from '../utils/SpotifyPlayer';
+import SpotifyPlayer from '../utils/SpotifyPlayer';
 
 const styles = {
   container: {
@@ -22,10 +22,11 @@ const PlaylistCard = () => {
   return (
     <>
       <div style={styles.container}>
+        {' '}
         <BackButton />
         <h2 style={styles.h2}>{from.name}</h2>
-        <h3 style={styles.h3}>{from.description}</h3>
-        <Spotify
+        <h3 style={styles.h3} dangerouslySetInnerHTML={{ __html: from.description }}></h3>
+        <SpotifyPlayer
           style={{ height: '600px', width: '50%' }}
           link={from.external_urls.spotify}
         />
@@ -33,4 +34,5 @@ const PlaylistCard = () => {
     </>
   );
 };
+
 export default PlaylistCard;

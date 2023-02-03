@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SectionWrapper } from '../components';
+import BackButton from '../components/BackButton';
 import { Link } from 'react-router-dom';
 import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
@@ -31,6 +32,15 @@ export default function Playlists(props) {
       }
     );
   }, [props.spotifyToken]);
+  if (items.length === 0)
+    return (
+      <>
+        <h2 style={{ textAlign: 'center', fontSize: '28px' }}>
+          Sorry. Seems like you have no saved playlists &#128577;
+        </h2>
+        <BackButton />
+      </>
+    );
 
   return (
     <>
@@ -46,6 +56,7 @@ export default function Playlists(props) {
         seeAllStarred="/starred"
         seeStarredTracks="Starred Tracks"
       />
+      <BackButton />
       <div className="background" style={style.container}>
         {items &&
           items.map((playlist, i) => (
@@ -63,6 +74,10 @@ export default function Playlists(props) {
                   alt="playlist"
                   style={{ width: '150px', margin: '10px auto' }}
                 />
+                <div className="tooltip" style={{ fontSize: '22px', left: '10px' }}>
+                  &#x24D8;
+                  <span className="tooltiptext">{playlist.name}</span>
+                </div>
               </Link>
             </div>
           ))}

@@ -5,12 +5,15 @@ import GenreFilterButton from '../components/GenreFilterButton';
 import React, { useState } from 'react';
 import TimeRangeButton from '../components/TimeRangeButton';
 import useToggleTimeRange from '../hooks/useTimeRange';
+import StyledHeader from '../styles/StyledHeader';
+// import useAuth from '../hooks/useAuth';
 import useTopArtists from '../hooks/useTopArtists';
+import SearchBar from '../components/SearchBar';
 import SpotifyWebApi from 'spotify-web-api-js';
 import SpotifyPreview from '../utils/SpotifyPreview';
 const spotifyApi = new SpotifyWebApi();
 
-const PlayList = () => {
+const PlayList = (props) => {
   const [searchKey, setSearchKey] = useState();
   const { timeRange, timeRangeText, toggleTimeRange } = useToggleTimeRange();
   const [playlist, setPlaylist] = useState([]);
@@ -57,14 +60,43 @@ const PlayList = () => {
   return (
     <>
       <div className="background">
+        <StyledHeader type="user">
+          <div className="header__inner">
+            {props.profile &&
+              props.profile.images &&
+              props.profile.images[0] &&
+              props.profile.images[0].url && (
+                <>
+                  <img
+                    loading="lazy"
+                    className="header__img"
+                    src={props.profile?.images[0].url}
+                    alt="profile name"
+                  />
+                  <div>
+                    <h2 className="header__name">
+                      {props.profile.display_name}'s Top Genres
+                    </h2>
+                    <span style={{ float: 'left' }}>
+                      {props.profile.followers.total} Follower
+                      {props.profile.followers.total !== 1 ? 's' : ''}
+                    </span>
+                  </div>
+                </>
+              )}
+          </div>
+        </StyledHeader>
+        <SearchBar renderSearch={renderSearch} />
+
         <GenreFilterButton
           genre={genre}
           renderGenre={renderGenre}
-          renderSearch={renderSearch}
           searchArtists={searchArtists}
         />
         {genre.length === 0 ? (
-          <h2>Sorry - Not enough data. Try back later to discover your top genres :(</h2>
+          <h2 style={{ fontSize: '28px' }}>
+            Sorry - Not enough data. Try back later to discover your top genres &#128577;
+          </h2>
         ) : (
           <>
             <TimeRangeButton

@@ -12,7 +12,7 @@ const spotifyApi = new SpotifyWebApi();
 const style = {
   container: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(8, 1fr)',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 2fr))',
     gridGap: '1rem',
     gridAutoRows: 'minmax(100px, auto)',
     justifyContent: 'center',
@@ -24,13 +24,16 @@ const style = {
 
   imgTile: {
     textAlign: 'left',
-    width: '50%',
+    alignItems: 'left',
+    maxWidth: '100px',
+    minWidth: '100px',
     marginTop: '-6rem',
     listStyle: 'none',
-    margin: '30px auto',
+    margin: '20px 10px auto',
     padding: '0rem',
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 2fr))',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 2fr))',
+    objectFit: 'contain',
     justifyContent: 'center',
   },
 };
@@ -116,9 +119,9 @@ export default function TopArtists() {
       />
       <BackButton />
       {artist.length === 0 ? (
-        <h2 style={{ textAlign: 'center' }}>
+        <h2 style={{ textAlign: 'center', fontSize: '28px' }}>
           {' '}
-          Sorry. Not enough data. Please try again at a later date.
+          Sorry. Not enough data. Please try again at a later date. &#128577;
         </h2>
       ) : (
         <>
@@ -132,7 +135,13 @@ export default function TopArtists() {
             {artist
               .map((data, i) => {
                 return (
-                  <>
+                  <div
+                    style={{
+                      borderRadius: '10px',
+                      display: 'inline-flex',
+                      padding: '10px',
+                    }}
+                  >
                     <Link
                       to={`/artists/${data.id}`}
                       state={{ from: data }}
@@ -145,17 +154,20 @@ export default function TopArtists() {
                       <div
                         style={{
                           textAlign: 'left',
-                          width: '50%',
-                          marginTop: '-4.5rem',
+                          marginTop: '-4rem',
                           listStyle: 'none',
                         }}
                       />
                       <h4>
                         {i + 1} {data.name} {''}
                       </h4>
+                      <img
+                        style={style.imgTile}
+                        src={data.images[2].url}
+                        alt={data.name}
+                      />
                     </Link>
-                    <img style={style.imgTile} src={data.images[2].url} alt={data.name} />
-                  </>
+                  </div>
                 );
               })
               .slice(0, 30)}

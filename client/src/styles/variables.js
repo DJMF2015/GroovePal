@@ -9,6 +9,8 @@ const variables = css`
     --light-grey: #b3b3b3;
     --white: #ffffff;
     --green: #1db954;
+    --red: #cf1b24;
+    --light-green: #1ed760;
     --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     --fz-xxs: 12px;
     --fz-xs: 13px;

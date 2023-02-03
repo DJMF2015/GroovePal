@@ -3,7 +3,7 @@ import Layout from './pages/Layout';
 import styled from 'styled-components/macro';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import PlayList from './pages/UserGenres';
+import UserGenres from './pages/UserGenres';
 import TopTracks from './pages/TopTracks';
 import UserPlaylists from './pages/Playlists';
 import Login from './pages/Login';
@@ -16,6 +16,7 @@ import TopArtists from './pages/TopArtists';
 function App() {
   const { spotifyToken, profile } = useAuth();
   const [token, setToken] = useState(null);
+
   useEffect(() => {
     setToken(spotifyToken);
   }, [spotifyToken]);
@@ -39,7 +40,7 @@ function App() {
 
             <Routes>
               <Route path="/" element={<Layout />}>
-                <Route path="/" element={<PlayList profile={profile} />} />
+                <Route path="/" element={<UserGenres profile={profile} />} />
                 <Route path="/tracks" element={<TopTracks />} />
                 <Route path="/playlists" element={<UserPlaylists />} />
                 <Route path="/playlists/:id" element={<PlaylistCard />} />

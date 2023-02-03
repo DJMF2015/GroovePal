@@ -10,24 +10,22 @@ body{
 }   
     .tooltip {
       position: relative;
-      display: inline-block;
-      border-bottom: 1px dotted black;
-        
+      display: inline-block; ;
     }
   
     .tooltip .tooltiptext {
       visibility: hidden;
       width: 120px;
-     
-      background-color: rgb(62, 59, 59);
-      color: #fff;
+      font-style: arial;
+      background-color: rgb(86, 82, 82); 
       text-align: center;
       border-radius: 15px;
-      padding: 0px 0;
+      padding: 10px 0;
       position: absolute;
       z-index: 1;
-      bottom: -90%;
-      left: -600%; 
+      bottom: 120%; 
+      border: '1px solid white';
+      left: -200%; 
       opacity: 0; 
       transition: opacity 0.5s;
     }
@@ -35,16 +33,19 @@ body{
     .tooltip .tooltiptext::after {
       content: "";
       position: absolute;
-      margin-top: '10px';
-      top: 100%;
-      left: 50%;
+      margin-top: '10px'; 
+      left: 20%;
       margin-left: -5px;
       border-width: 5px;
       border-style: solid;
-      border-color: #555 transparent transparent transparent;
+      border-color: transparent transparent transparent transparent;
     }
   
     .tooltip:hover .tooltiptext {
       visibility: visible;
       opacity: 1;
+      margin-top: -2rem;
+      font-size: 18px;
+      color: rgb(255, 254, 254);
+      font-style: Roboto, sans-serif;
     }
