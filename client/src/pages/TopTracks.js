@@ -10,11 +10,11 @@ const TopTracks = () => {
 
   const createTopTracksPlaylist = async () => {
     let me = await spotifyApi.getMe();
-
+    console.log({ me });
     await spotifyApi.createPlaylist(me.id, {
       name: playlistName,
       public: true,
-      description: `${me.display_name} David's Top Tracks - ${TodayDate()}`,
+      description: `${me.display_name}'s Top Tracks - ${TodayDate()}`,
     });
 
     const playlists = await spotifyApi.getUserPlaylists(me.id);

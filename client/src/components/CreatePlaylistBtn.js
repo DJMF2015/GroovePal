@@ -14,9 +14,9 @@ export default function CreatePlaylistBtn({ onClick }) {
   };
   return (
     <>
-      <div class="tooltip" style={{ fontSize: '22px' }}>
+      <div className="tooltip" style={{ fontSize: '22px' }}>
         &#x24D8;
-        <span class="tooltiptext">
+        <span className="tooltiptext">
           Select Create Playlist to save tracks to Spotify account
         </span>
       </div>
