@@ -33,7 +33,7 @@ const PlayList = (props) => {
         type: 'track,artist,playlist',
       },
     });
-    setTracks(data.tracks.items);
+    // setTracks(data.tracks.items);
     setPlaylist(data.playlists.items);
   };
 
@@ -41,7 +41,7 @@ const PlayList = (props) => {
     console.log(e);
     setSearchKey(e);
   };
-  console.log({ props });
+
   const renderSearch = async (e) => {
     setSearchKey(e);
     const { data } = await axios.get('https://api.spotify.com/v1/search?', {
