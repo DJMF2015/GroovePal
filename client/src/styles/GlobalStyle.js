@@ -85,20 +85,13 @@ const GlobalStyle = createGlobalStyle`
     border: 0;
   }
   .overflow-ellipsis {
-    -webkit-line-clamp: 1;
-    /* -webkit-box-orient: vertical; */
+    -webkit-line-clamp: 1; 
     display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: unset;
     word-break: break-all;
-  }
-  .empty-notice {
-    color: var(--grey);
-    font-size: var(--fz-lg);
-    text-align: center;
-    padding: var(--spacing-xxl);
-  }
+  } 
 `;
 
 export default GlobalStyle;

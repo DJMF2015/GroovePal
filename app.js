@@ -10,7 +10,6 @@ require('dotenv').config(); // to store client variables
 // const CLIENT_ID = process.env.CLIENT_ID;
 // const CLIENT_SECRET = process.env.CLIENT_SECRET;
 // const REDIRECT_URI = process.env.REDIRECT_URI;
-
 // credentials for test application
 const CLIENT_ID = '48b0846a1e814a1088a62061f229b189';
 const CLIENT_SECRET = 'c603f273b3944dcd930d0b6e0e2c0f54';
@@ -37,6 +36,7 @@ app.use(cors()).use(cookieParser());
 app.get('/login', function (req, res) {
   let state = generateRandomString(256);
   res.cookie(stateKey, state);
+
   // your application requests authorization
   const scope =
     'playlist-modify-private playlist-read-collaborative playlist-read-private playlist-modify-public user-read-private user-read-email user-read-playback-state user-top-read user-library-read user-read-recently-played';

@@ -5,13 +5,14 @@ const spotifyApi = new SpotifyWebApi();
 
 const useTopArtists = (timeRange) => {
   const [genre, setGenre] = useState([]);
-
+  const [topArtists, setTopArtists] = useState([]);
   useEffect(() => {
     const getTopArtists = () => {
       /* Get a User’s Top Artists*/
       spotifyApi.getMyTopArtists({ limit: 50, offset: 0, time_range: timeRange }).then(
         function (data) {
           let topArtists = data;
+          setTopArtists(topArtists);
           SortByTopGenres({ topArtists, setGenre });
         },
         function (err) {
@@ -21,6 +22,6 @@ const useTopArtists = (timeRange) => {
     };
     getTopArtists();
   }, [timeRange]);
-  return { genre };
+  return { genre, topArtists };
 };
 export default useTopArtists;

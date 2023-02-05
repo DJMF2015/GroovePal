@@ -13,11 +13,11 @@ const style = {
   container: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 2fr))',
-    gridGap: '1rem',
+    gridGap: '0rem',
     gridAutoRows: 'minmax(100px, auto)',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: '5vw',
+    margin: '2vw',
     textAlign: 'center',
     padding: '0rem',
   },
@@ -40,11 +40,15 @@ const style = {
 
 export default function TopArtists() {
   const [artist, setArtists] = useState([]);
-  // import timeRange hook  from TimeRange.js
+  const [popularity, setPopularity] = useState(45);
+  const [instrumentalness, setInstrumentalness] = useState(0.2);
+  const [danceability, setDanceability] = useState(0.2);
+  const [energy, setEnergy] = useState(0.2);
   const { timeRange, timeRangeText, toggleTimeRange } = useToggleTimeRange();
   const [loading, setLoading] = useState(false);
   const [recommendations, setSeedforRecommendations] = useState(null);
   const [artistData, setArtistData] = useState([]);
+
   useEffect(() => {
     const fetchTopArtists = async () => {
       const access_token = spotifyApi.getAccessToken();
@@ -76,20 +80,22 @@ export default function TopArtists() {
     fetchTopArtists();
     setLoading(false);
   }, [timeRange]);
-
   useEffect(() => {
     // get recommendations from seed data from top artists
     const getRecommendations = async () => {
       const endpoint = 'https://api.spotify.com/v1/recommendations';
       const artistSeeds = encodeURIComponent(recommendations);
       const joinArtistSeeds = artistSeeds.split(',').join('%2C');
-
-      await fetch(`${endpoint}?seed_artists=${joinArtistSeeds}&min_popularity=45`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${spotifyApi.getAccessToken()}`,
-        },
-      }).then((response) =>
+      console.log({ joinArtistSeeds });
+      await fetch(
+        `${endpoint}?seed_artists=${joinArtistSeeds}&min_popularity=${popularity}&min_instrumentalness=${instrumentalness}&min_danceability=${danceability}&min_Energy=${energy} `,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${spotifyApi.getAccessToken()}`,
+          },
+        }
+      ).then((response) =>
         response
           .json()
           .then((data) => {
@@ -101,7 +107,20 @@ export default function TopArtists() {
       );
     };
     getRecommendations();
-  }, [recommendations]);
+  }, [recommendations, popularity, instrumentalness, energy, danceability]);
+
+  const handlePopularityChange = (e) => {
+    setPopularity(e);
+  };
+  const handleInstrumentalChange = (e) => {
+    setInstrumentalness(e);
+  };
+  const handleEnergyChange = (e) => {
+    setEnergy(e);
+  };
+  const handleDanceabilityChange = (e) => {
+    setDanceability(e);
+  };
 
   return (
     <div style={{ margin: '20px', marginLeft: '10px', marginTop: '30px' }}>
@@ -118,11 +137,14 @@ export default function TopArtists() {
         seeStarredTracks="Starred Tracks"
       />
       <BackButton style={{ marginLeft: '-10em' }} />
+
       {artist.length === 0 ? (
-        <h2 style={{ textAlign: 'center', fontSize: '28px' }}>
-          {' '}
-          Sorry. Not enough data. Please try again at a later date. &#128577;
-        </h2>
+        <>
+          <h2 style={{ textAlign: 'center', fontSize: '28px' }}>
+            {' '}
+            Sorry. Not enough data. Please try again at a later date. &#128577;
+          </h2>
+        </>
       ) : (
         <>
           <TimeRangeButton
@@ -175,7 +197,15 @@ export default function TopArtists() {
         </>
       )}
 
-      {artistData && <RecommendationsCard artistData={artistData} />}
+      {artistData && (
+        <RecommendationsCard
+          artistData={artistData}
+          handleInstrumentalChange={handleInstrumentalChange}
+          handlePopularityChange={handlePopularityChange}
+          handleEnergyChange={handleEnergyChange}
+          handleDanceabilityChange={handleDanceabilityChange}
+        />
+      )}
     </div>
   );
 }

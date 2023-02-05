@@ -19,8 +19,9 @@ const PlayList = (props) => {
   const [playlist, setPlaylist] = useState([]);
   const [tracks, setTracks] = useState([]);
   const access_token = spotifyApi.getAccessToken();
-  const { genre, timeRanges } = useTopArtists(timeRange);
+  const { genre, timeRanges, topArtists } = useTopArtists(timeRange);
   Shuffle(playlist); // shuffle the order of playlists based on the genre
+  Shuffle(tracks); // shuffle the order of tracks based on the genre
 
   const searchArtists = async (e) => {
     e.preventDefault();
@@ -33,7 +34,7 @@ const PlayList = (props) => {
         type: 'track,artist,playlist',
       },
     });
-
+    setTracks(data.tracks.items);
     setPlaylist(data.playlists.items);
   };
 
@@ -41,7 +42,7 @@ const PlayList = (props) => {
     console.log(e);
     setSearchKey(e);
   };
-
+  console.log({ props });
   const renderSearch = async (e) => {
     setSearchKey(e);
     const { data } = await axios.get('https://api.spotify.com/v1/search?', {
@@ -93,7 +94,7 @@ const PlayList = (props) => {
           searchArtists={searchArtists}
         />
         {genre.length === 0 ? (
-          <h2 style={{ fontSize: '28px' }}>
+          <h2 style={{ fontSize: '28px', marginTop: '-30px' }}>
             Sorry - Not enough data. Try back later to discover your top genres &#128577;
           </h2>
         ) : (
@@ -108,7 +109,6 @@ const PlayList = (props) => {
           </>
         )}
         <br></br>
-
         <div className="background">
           {tracks &&
             tracks
@@ -122,7 +122,7 @@ const PlayList = (props) => {
                   />
                 </>
               ))
-              .slice(0, 5)}
+              .slice(0, 1)}
         </div>
       </div>
     </>
