@@ -21,7 +21,6 @@ const PlayList = (props) => {
   const access_token = spotifyApi.getAccessToken();
   const { genre, timeRanges, topArtists } = useTopArtists(timeRange);
   Shuffle(playlist); // shuffle the order of playlists based on the genre
-  Shuffle(tracks); // shuffle the order of tracks based on the genre
 
   const searchArtists = async (e) => {
     e.preventDefault();
@@ -122,7 +121,7 @@ const PlayList = (props) => {
                   />
                 </>
               ))
-              .slice(0, 1)}
+              .slice(0, 5)}
         </div>
       </div>
     </>
