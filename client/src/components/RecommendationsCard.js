@@ -59,9 +59,7 @@ const RecommendationsCard = (props) => {
               name="popularity"
               min="0"
               max="100"
-              onChange={(e) => {
-                props.handlePopularityChange(e.target.value);
-              }}
+              onChange={props.handleInputChange}
             />
 
             <label style={{ margin: '2em' }}>Instrumentalness</label>
@@ -71,9 +69,7 @@ const RecommendationsCard = (props) => {
               name="instrumentalness"
               max="0.9"
               step="0.01"
-              onChange={(e) => {
-                props.handleInstrumentalChange(e.target.value);
-              }}
+              onChange={props.handleInputChange}
             />
             <label style={{ margin: '2em' }}>Energy</label>
             <input
@@ -82,9 +78,7 @@ const RecommendationsCard = (props) => {
               name="energy"
               max="0.9"
               step="0.01"
-              onChange={(e) => {
-                props.handleEnergyChange(e.target.value);
-              }}
+              onChange={props.handleInputChange}
             />
             <label style={{ margin: '2em' }}>Danceability</label>
             <input
@@ -93,9 +87,7 @@ const RecommendationsCard = (props) => {
               name="danceability"
               max="0.9"
               step="0.01"
-              onChange={(e) => {
-                props.handleDanceabilityChange(e.target.value);
-              }}
+              onChange={props.handleInputChange}
             />
           </div>
         </>

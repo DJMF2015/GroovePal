@@ -38,12 +38,15 @@ const style = {
   },
 };
 
+const initialState = {
+  popularity: 45,
+  instrumentalness: 0.2,
+  danceability: 0.2,
+  energy: 0.2,
+};
 export default function TopArtists() {
   const [artist, setArtists] = useState([]);
-  const [popularity, setPopularity] = useState(45);
-  const [instrumentalness, setInstrumentalness] = useState(0.2);
-  const [danceability, setDanceability] = useState(0.2);
-  const [energy, setEnergy] = useState(0.2);
+  const [initialValues, setValues] = useState(initialState);
   const { timeRange, timeRangeText, toggleTimeRange } = useToggleTimeRange();
   const [loading, setLoading] = useState(false);
   const [recommendations, setSeedforRecommendations] = useState(null);
@@ -80,15 +83,15 @@ export default function TopArtists() {
     fetchTopArtists();
     setLoading(false);
   }, [timeRange]);
+
   useEffect(() => {
     // get recommendations from seed data from top artists
     const getRecommendations = async () => {
       const endpoint = 'https://api.spotify.com/v1/recommendations';
       const artistSeeds = encodeURIComponent(recommendations);
       const joinArtistSeeds = artistSeeds.split(',').join('%2C');
-      console.log({ joinArtistSeeds });
       await fetch(
-        `${endpoint}?seed_artists=${joinArtistSeeds}&min_popularity=${popularity}&min_instrumentalness=${instrumentalness}&min_danceability=${danceability}&min_Energy=${energy} `,
+        `${endpoint}?seed_artists=${joinArtistSeeds}&min_popularity=${initialValues.popularity}&min_instrumentalness=${initialValues.instrumentalness}&min_danceability=${initialValues.danceability}&min_energy=${initialValues.energy} `,
         {
           method: 'GET',
           headers: {
@@ -107,19 +110,15 @@ export default function TopArtists() {
       );
     };
     getRecommendations();
-  }, [recommendations, popularity, instrumentalness, energy, danceability]);
+  }, [recommendations, initialValues]);
 
-  const handlePopularityChange = (e) => {
-    setPopularity(e);
-  };
-  const handleInstrumentalChange = (e) => {
-    setInstrumentalness(e);
-  };
-  const handleEnergyChange = (e) => {
-    setEnergy(e);
-  };
-  const handleDanceabilityChange = (e) => {
-    setDanceability(e);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    console.log({ name, value });
+    setValues({
+      ...initialValues,
+      [name]: value,
+    });
   };
 
   return (
@@ -200,10 +199,7 @@ export default function TopArtists() {
       {artistData && (
         <RecommendationsCard
           artistData={artistData}
-          handleInstrumentalChange={handleInstrumentalChange}
-          handlePopularityChange={handlePopularityChange}
-          handleEnergyChange={handleEnergyChange}
-          handleDanceabilityChange={handleDanceabilityChange}
+          handleInputChange={handleInputChange}
         />
       )}
     </div>
