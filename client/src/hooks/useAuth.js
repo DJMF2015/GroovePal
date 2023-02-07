@@ -8,6 +8,7 @@ const useAuth = () => {
   const [profile, setProfile] = useState([]);
   useEffect(() => {
     const spotifyToken = getTokenfromUrl().access_token;
+
     window.location.hash = '';
     if (spotifyToken) {
       setSpotifyToken(spotifyToken);

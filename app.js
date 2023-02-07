@@ -34,7 +34,7 @@ const stateKey = 'spotify_auth_state';
 
 app.use(cors()).use(cookieParser());
 app.get('/login', function (req, res) {
-  let state = generateRandomString(256);
+  let state = generateRandomString(16);
   res.cookie(stateKey, state);
 
   // your application requests authorization

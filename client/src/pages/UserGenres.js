@@ -8,6 +8,7 @@ import useToggleTimeRange from '../hooks/useTimeRange';
 import StyledHeader from '../styles/StyledHeader';
 import { Shuffle } from '../utils/Helpers';
 import useTopArtists from '../hooks/useTopArtists';
+import useTopTracks from '../hooks/useTopTracks';
 import SearchBar from '../components/SearchBar';
 import SpotifyWebApi from 'spotify-web-api-js';
 import SpotifyPreview from '../utils/SpotifyPreview';
@@ -20,6 +21,7 @@ const PlayList = (props) => {
   const [tracks, setTracks] = useState([]);
   const access_token = spotifyApi.getAccessToken();
   const { genre, timeRanges, topArtists } = useTopArtists(timeRange);
+  // const { topTracks } = useTopTracks(timeRange);
   Shuffle(playlist); // shuffle the order of playlists based on the genre
 
   const searchArtists = async (e) => {
@@ -41,7 +43,7 @@ const PlayList = (props) => {
     console.log(e);
     setSearchKey(e);
   };
-
+  // console.log({ topTracks });
   const renderSearch = async (e) => {
     setSearchKey(e);
     const { data } = await axios.get('https://api.spotify.com/v1/search?', {
@@ -55,11 +57,10 @@ const PlayList = (props) => {
     });
     setTracks(data.tracks.items);
   };
-
   return (
     <>
       <div className="background">
-        <StyledHeader type="user">
+        <StyledHeader>
           <div className="header__inner">
             {props.profile &&
               props.profile.images &&
@@ -84,7 +85,43 @@ const PlayList = (props) => {
                 </>
               )}
           </div>
+          <div
+            style={{
+              display: 'grid',
+              // 2 columns wide
+              gridTemplateColumns: 'repeat(3, 1fr)',
+
+              marginBottom: '4rem',
+              gridGap: '3px',
+              textAlign: 'left',
+            }}
+          >
+            <h3>Top 5 Artists </h3>
+            {topArtists &&
+              topArtists.items &&
+              topArtists.items.length > 0 &&
+              topArtists.items
+                .map((artist, i) => (
+                  <div key={i}>
+                    <p>{i + 1 + ' ' + artist.name}</p>
+                  </div>
+                ))
+                .slice(0, 5)}
+            <h3>Top 5 Genres</h3>
+            {genre &&
+              genre.length > 0 &&
+              genre
+                .map((genre, i) => {
+                  return (
+                    <div key={i}>
+                      <p>{i + 1 + ' ' + genre[0]}</p>
+                    </div>
+                  );
+                })
+                .slice(0, 5)}
+          </div>
         </StyledHeader>
+
         <SearchBar renderSearch={renderSearch} />
 
         <GenreFilterButton
