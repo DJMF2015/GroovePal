@@ -21,9 +21,9 @@ const PlayList = (props) => {
   const [tracks, setTracks] = useState([]);
   const access_token = spotifyApi.getAccessToken();
   const { genre, timeRanges, topArtists } = useTopArtists(timeRange);
-  const { topTracks } = useTopTracks(timeRange);
+  // const { topTracks } = useTopTracks(timeRange);
   Shuffle(playlist); // shuffle the order of playlists based on the genre
-  Shuffle(tracks); // shuffle the order of tracks based on the genre
+  // Shuffle(tracks); // shuffle the order of tracks based on the genre
   const searchArtists = async (e) => {
     e.preventDefault();
     const { data } = await axios.get('https://api.spotify.com/v1/search?', {
@@ -35,7 +35,7 @@ const PlayList = (props) => {
         type: 'track,artist,playlist',
       },
     });
-    setTracks(data.tracks.items);
+    // setTracks(data.tracks.items);
     setPlaylist(data.playlists.items);
   };
 

@@ -43,6 +43,8 @@ const initialState = {
   instrumentalness: 0.2,
   danceability: 0.2,
   energy: 0.2,
+  valence: 0.2,
+  tempo: 100,
 };
 export default function TopArtists() {
   const [artist, setArtists] = useState([]);
@@ -74,9 +76,9 @@ export default function TopArtists() {
       setLoading(true);
       const topArtistsSeedsId = response.data.items.map((artist) => artist.id);
       // set random seed for recommendations from top artists
-      const randomSeeds =
+      const randomArtistSeeds =
         topArtistsSeedsId[(Math.random() * topArtistsSeedsId.length) | 0];
-      setSeedforRecommendations(randomSeeds);
+      setSeedforRecommendations(randomArtistSeeds);
       let topArtists = response.data.items.map((artist) => artist);
       setArtists(topArtists);
     };
@@ -90,15 +92,24 @@ export default function TopArtists() {
       const endpoint = 'https://api.spotify.com/v1/recommendations';
       const artistSeeds = encodeURIComponent(recommendations);
       const joinArtistSeeds = artistSeeds.split(',').join('%2C');
-      await fetch(
-        `${endpoint}?seed_artists=${joinArtistSeeds}&min_popularity=${initialValues.popularity}&min_instrumentalness=${initialValues.instrumentalness}&min_danceability=${initialValues.danceability}&min_energy=${initialValues.energy} `,
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${spotifyApi.getAccessToken()}`,
-          },
-        }
-      ).then((response) =>
+
+      const params = new URLSearchParams({
+        // URLSearchParams to create a query string
+        seed_artists: joinArtistSeeds,
+        min_popularity: initialValues.popularity,
+        min_instrumentalness: initialValues.instrumentalness,
+        min_danceability: initialValues.danceability,
+        min_energy: initialValues.energy,
+        min_valence: initialValues.valence,
+        min_tempo: initialValues.tempo,
+      });
+      const url = `${endpoint}?${params.toString()}`;
+      await fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${spotifyApi.getAccessToken()}`,
+        },
+      }).then((response) =>
         response
           .json()
           .then((data) => {
@@ -111,7 +122,6 @@ export default function TopArtists() {
     };
     getRecommendations();
   }, [recommendations, initialValues]);
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     console.log({ name, value });

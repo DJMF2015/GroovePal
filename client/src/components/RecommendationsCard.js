@@ -65,6 +65,25 @@ const RecommendationsCard = (props) => {
               step="0.01"
               onChange={props.handleInputChange}
             />
+
+            <label style={{ margin: '2em' }}>Valence</label>
+            <input
+              type="range"
+              min="0"
+              name="valence"
+              max="0.9"
+              step="0.01"
+              onChange={props.handleInputChange}
+            />
+            <label style={{ margin: '2em' }}>Tempo</label>
+            <input
+              type="range"
+              min="0"
+              name="tempo"
+              max="200"
+              step="1"
+              onChange={props.handleInputChange}
+            />
           </div>
         </>
       )}
