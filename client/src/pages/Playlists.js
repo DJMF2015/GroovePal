@@ -70,8 +70,8 @@ export default function Playlists(props) {
                 }}
               >
                 <img
-                  src={playlist.images[0].url}
-                  alt="playlist"
+                  src={playlist.images[0].url ? playlist.images[0].url : ''}
+                  alt={playlist.name}
                   style={{ width: '150px', margin: '10px auto' }}
                 />
                 <div className="tooltip" style={{ fontSize: '22px', left: '10px' }}>

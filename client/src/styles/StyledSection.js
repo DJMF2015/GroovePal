@@ -9,7 +9,9 @@ const StyledSection = styled.section`
 
   .section__inner {
     width: 100%;
-    max-width: var(--site-max-width);
+    float: left;
+    display: inline;
+    /* max-width: var(--site-max-width); */
     margin: 10px auto;
     position: relative;
     padding: var(--spacing-lg) var(--spacing-md);

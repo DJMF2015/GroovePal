@@ -29,7 +29,6 @@ Clone the repository and install its dependencies running:
 </p>
 
 ##### TO-DO
- - Add range slider widget to recommendations endpoint to allow user to customise
  - remove axios as a dependency and replace with fetch
  - remove spotify-web-api-js package and replace with spotify api http endpoints
  - Modify authorization workflow to use PKCE

@@ -10,7 +10,7 @@ require('dotenv').config(); // to store client variables
 // const CLIENT_ID = process.env.CLIENT_ID;
 // const CLIENT_SECRET = process.env.CLIENT_SECRET;
 // const REDIRECT_URI = process.env.REDIRECT_URI;
-// credentials for test application
+// // credentials for test application
 const CLIENT_ID = '48b0846a1e814a1088a62061f229b189';
 const CLIENT_SECRET = 'c603f273b3944dcd930d0b6e0e2c0f54';
 const REDIRECT_URI = 'http://localhost:8888/callback';

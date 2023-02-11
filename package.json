@@ -17,6 +17,7 @@
     "crypto": "^1.0.1",
     "dotenv": "^16.0.3",
     "express": "~4.16.0",
+    "local-storage": "^2.0.0",
     "nodemon": "^2.0.20",
     "querystring": "~0.2.0",
     "request": "~2.83.0"

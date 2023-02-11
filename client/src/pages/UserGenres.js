@@ -21,9 +21,9 @@ const PlayList = (props) => {
   const [tracks, setTracks] = useState([]);
   const access_token = spotifyApi.getAccessToken();
   const { genre, timeRanges, topArtists } = useTopArtists(timeRange);
-  // const { topTracks } = useTopTracks(timeRange);
+  const { topTracks } = useTopTracks(timeRange);
   Shuffle(playlist); // shuffle the order of playlists based on the genre
-
+  Shuffle(tracks); // shuffle the order of tracks based on the genre
   const searchArtists = async (e) => {
     e.preventDefault();
     const { data } = await axios.get('https://api.spotify.com/v1/search?', {
@@ -35,15 +35,14 @@ const PlayList = (props) => {
         type: 'track,artist,playlist',
       },
     });
-    // setTracks(data.tracks.items);
+    setTracks(data.tracks.items);
     setPlaylist(data.playlists.items);
   };
 
   const renderGenre = (e) => {
-    console.log(e);
     setSearchKey(e);
   };
-  // console.log({ topTracks });
+
   const renderSearch = async (e) => {
     setSearchKey(e);
     const { data } = await axios.get('https://api.spotify.com/v1/search?', {
@@ -57,10 +56,11 @@ const PlayList = (props) => {
     });
     setTracks(data.tracks.items);
   };
+
   return (
     <>
       <div className="background">
-        <StyledHeader>
+        <StyledHeader type="user">
           <div className="header__inner">
             {props.profile &&
               props.profile.images &&
@@ -90,8 +90,7 @@ const PlayList = (props) => {
               display: 'grid',
               // 2 columns wide
               gridTemplateColumns: 'repeat(3, 1fr)',
-
-              marginBottom: '4rem',
+              marginBottom: '2rem',
               gridGap: '3px',
               textAlign: 'left',
             }}
@@ -107,7 +106,7 @@ const PlayList = (props) => {
                   </div>
                 ))
                 .slice(0, 5)}
-            <h3>Top 5 Genres</h3>
+            <h3>Top 5 Genres </h3>
             {genre &&
               genre.length > 0 &&
               genre
@@ -118,7 +117,17 @@ const PlayList = (props) => {
                     </div>
                   );
                 })
-                .slice(0, 5)}
+                .slice(0, 5)}{' '}
+            {/* <h3>Top 5 Tracks </h3>
+            {topTracks &&
+              topTracks.length > 0 &&
+              topTracks
+                .map((track, i) => (
+                  <div key={i}>
+                    <p>{i + 1 + ' ' + track.name.slice(0, 30).concat('...')}</p>
+                  </div>
+                ))
+                .slice(0, 5)} */}
           </div>
         </StyledHeader>
 

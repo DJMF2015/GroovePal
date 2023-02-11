@@ -1,41 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import SpotifyPreview from '../utils/SpotifyPreview';
-import TodayDate from '../utils/Date';
 import CreatePlaylistButton from './CreatePlaylistBtn';
-import SpotifyWebApi from 'spotify-web-api-js';
-const spotifyApi = new SpotifyWebApi();
+import useCreatePlaylist from '../hooks/useCreatePlaylist';
 
 const style = {
   rangeButtons: {
-    // display: 'inline',
     alignItems: 'center',
     margin: '25px 25px 20px 8px',
     padding: '3px 0px 0px 0px',
   },
 };
 const RecommendationsCard = (props) => {
-  const [playlistName, setPlaylistName] = useState(`Discover - ${TodayDate()}`);
-  const createTopTracksPlaylist = async () => {
-    let me = await spotifyApi.getMe();
-
-    await spotifyApi.createPlaylist(me.id, {
-      name: playlistName,
-      public: true,
-      description: `${me.display_name} Recommendations - ${TodayDate()}  `,
-    });
-
-    const playlists = await spotifyApi.getUserPlaylists(me.id);
-
-    const existingPlaylist = await playlists.items.find((p) => p.name === playlistName);
-    let trackUris = [];
-    props.artistData.tracks.map((track, i) => {
-      return trackUris.push(track.uri);
-    });
-
-    await spotifyApi.addTracksToPlaylist(existingPlaylist.id, trackUris, {
-      position: 0,
-    });
-  };
+  const { createTopTracksPlaylist } = useCreatePlaylist(props.artistData);
 
   return (
     <div className="background">
