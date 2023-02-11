@@ -5,9 +5,13 @@ import useCreatePlaylist from '../hooks/useCreatePlaylist';
 
 const style = {
   rangeButtons: {
-    alignItems: 'center',
-    margin: '25px 25px 20px 8px',
-    padding: '3px 0px 0px 0px',
+    justifyContent: 'left',
+    alignItems: 'left',
+    textAlign: 'left',
+    margin: '3em 10em 3em 12em',
+    padding: '2em 0em 2em 0em',
+    border: '2px solid red',
+    borderRadius: '3rem',
   },
 };
 const RecommendationsCard = (props) => {
@@ -93,7 +97,7 @@ const RecommendationsCard = (props) => {
           <>
             <p> {track?.name}</p>
             <SpotifyPreview
-              style={{ border: '1px solid black', width: '400px' }}
+              style={{ border: '1px solid black', width: '400px', margin: '1em' }}
               link={track.external_urls?.spotify}
             />
           </>
