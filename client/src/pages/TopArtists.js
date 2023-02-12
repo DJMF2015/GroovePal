@@ -74,12 +74,12 @@ export default function TopArtists() {
           console.log(err);
         });
       setLoading(true);
-      const topArtistsSeedsId = response.data.items.map((artist) => artist.id);
-      // set random seed for recommendations from top artists
-      const randomArtistSeeds =
-        topArtistsSeedsId[(Math.random() * topArtistsSeedsId.length) | 0];
-      setSeedforRecommendations(randomArtistSeeds);
-      let topArtists = response.data.items.map((artist) => artist);
+      const topArtistsSeedsId = response.data.items
+        .map((artist) => artist.id)
+        .slice(0, 20); // get top 20 artists seeds
+      setSeedforRecommendations(topArtistsSeedsId);
+
+      let topArtists = response.data.items.map((artist) => artist); // get top 50 artists
       setArtists(topArtists);
     };
     fetchTopArtists();
@@ -89,13 +89,12 @@ export default function TopArtists() {
   useEffect(() => {
     // get recommendations from seed data from top artists
     const getRecommendations = async () => {
-      const endpoint = 'https://api.spotify.com/v1/recommendations';
       const artistSeeds = encodeURIComponent(recommendations);
-      const joinArtistSeeds = artistSeeds.split(',').join('%2C');
-
+      const data = decodeURIComponent(artistSeeds);
+      const joinArtistSeeds = data.split(',').join('&');
+      const endpoint = `https://api.spotify.com/v1/recommendations?seed_artists=${joinArtistSeeds}`;
       const params = new URLSearchParams({
         // URLSearchParams to create a query string
-        seed_artists: joinArtistSeeds,
         min_popularity: initialValues.popularity,
         min_instrumentalness: initialValues.instrumentalness,
         min_danceability: initialValues.danceability,
@@ -122,9 +121,9 @@ export default function TopArtists() {
     };
     getRecommendations();
   }, [recommendations, initialValues]);
+
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    console.log({ name, value });
+    const { name, value } = e.target; // get name and value from input
     setValues({
       ...initialValues,
       [name]: value,

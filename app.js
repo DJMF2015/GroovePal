@@ -19,6 +19,7 @@ const REDIRECT_URI = 'http://localhost:8888/callback';
  * @param  {number} length The length of the string
  * @return {string} The generated string
  */
+/** add code challenge to code */
 
 const generateRandomString = function (length) {
   let text = '';

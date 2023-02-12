@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     setToken(spotifyToken);
   }, [spotifyToken]);
-
+  console.log('token', token);
   return (
     <>
       {!token ? (

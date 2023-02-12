@@ -7,14 +7,12 @@ const spotifyApi = new SpotifyWebApi();
 
 export default function Likedtracks() {
   const [likedtracks, setMyLikedTracks] = useState([]);
-
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getSavedTracks = async () => {
       let offset = 0;
       const savedTracks = [];
-
       // loop through savedTracks until no more pages of results are returned
       const baseUrl = 'https://api.spotify.com/v1/me/tracks?';
       let lastResult = [];
