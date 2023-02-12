@@ -89,9 +89,8 @@ export default function TopArtists() {
   useEffect(() => {
     // get recommendations from seed data from top artists
     const getRecommendations = async () => {
-      const artistSeeds = encodeURIComponent(recommendations);
-      const data = decodeURIComponent(artistSeeds);
-      const joinArtistSeeds = data.split(',').join('&');
+      const artistSeeds = decodeURIComponent(recommendations);
+      const joinArtistSeeds = artistSeeds.split(',').join('&');
       const endpoint = `https://api.spotify.com/v1/recommendations?seed_artists=${joinArtistSeeds}`;
       const params = new URLSearchParams({
         // URLSearchParams to create a query string
