@@ -8,11 +8,12 @@ const spotifyApi = new SpotifyWebApi();
 
 const styles = {
   img: {
-    margin: '0 auto',
-    borderRadius: '50%',
+    margin: '2px auto',
+    borderRadius: '75%',
     display: 'flex',
-    width: '100px',
-    height: '100px',
+    width: '10% ',
+    height: '50%',
+    boxShadow: '3px 2px 10px 0 ghostwhite',
   },
 
   link: {

@@ -41,7 +41,6 @@ export default function Playlists(props) {
         <BackButton />
       </>
     );
-
   return (
     <>
       <SectionWrapper
@@ -52,9 +51,9 @@ export default function Playlists(props) {
         seeAllTracks="/tracks"
         titleTracks="Top Tracks"
         seeAllPlaylists="/playlists"
-        titlePlaylists="Top Playlists"
+        titlePlaylists="Playlists"
         seeAllStarred="/starred"
-        seeStarredTracks="Starred Tracks"
+        seeStarredTracks="Liked Songs"
       />
       <BackButton />
       <div className="background" style={style.container}>
@@ -77,6 +76,7 @@ export default function Playlists(props) {
                 <div className="tooltip" style={{ fontSize: '22px', left: '10px' }}>
                   &#x24D8;
                   <span className="tooltiptext">{playlist.name}</span>
+                  {/* <h3>{[playlist.da}</h3> */}
                 </div>
               </Link>
             </div>

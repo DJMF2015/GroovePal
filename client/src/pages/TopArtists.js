@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
 import TimeRangeButton from '../components/TimeRangeButton';
 import useToggleTimeRange from '../hooks/useTimeRange';
+import Styled from 'styled-components';
 import { SectionWrapper } from '../components';
 import BackButton from '../components/BackButton';
 import { Link } from 'react-router-dom';
@@ -10,17 +11,17 @@ import RecommendationsCard from '../components/RecommendationsCard';
 const spotifyApi = new SpotifyWebApi();
 
 const style = {
-  container: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 2fr))',
-    gridGap: '0rem',
-    gridAutoRows: 'minmax(100px, auto)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: '2vw',
-    textAlign: 'center',
-    padding: '0rem',
-  },
+  // container: {
+  //   display: 'grid',
+  //   gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 2fr))',
+  //   gridGap: '0rem',
+  //   gridAutoRows: 'minmax(100px, auto)',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   margin: '2vw',
+  //   textAlign: 'center',
+  //   padding: '0rem',
+  // },
 
   imgTile: {
     textAlign: 'left',
@@ -35,6 +36,7 @@ const style = {
     gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 2fr))',
     objectFit: 'contain',
     justifyContent: 'center',
+    border: '1px solid #eaeaea',
   },
 };
 
@@ -45,6 +47,7 @@ const initialState = {
   energy: 0.2,
   valence: 0.2,
   tempo: 100,
+  speechiness: 0.35,
 };
 export default function TopArtists() {
   const [artist, setArtists] = useState([]);
@@ -85,7 +88,6 @@ export default function TopArtists() {
     fetchTopArtists();
     setLoading(false);
   }, [timeRange]);
-
   useEffect(() => {
     // get recommendations from seed data from top artists
     const getRecommendations = async () => {
@@ -100,7 +102,9 @@ export default function TopArtists() {
         min_energy: initialValues.energy,
         min_valence: initialValues.valence,
         min_tempo: initialValues.tempo,
+        target_speechiness: initialValues.speechiness,
       });
+
       const url = `${endpoint}?${params.toString()}`;
       await fetch(url, {
         method: 'GET',
@@ -128,7 +132,6 @@ export default function TopArtists() {
       [name]: value,
     });
   };
-
   return (
     <div style={{ margin: '20px', marginLeft: '10px', marginTop: '30px' }}>
       <SectionWrapper
@@ -139,11 +142,15 @@ export default function TopArtists() {
         seeAllTracks="/tracks"
         titleTracks="Top Tracks"
         seeAllPlaylists="/playlists"
-        titlePlaylists="Top Playlists"
+        titlePlaylists="Playlists"
         seeAllStarred="/starred"
-        seeStarredTracks="Starred Tracks"
+        seeStarredTracks="Liked Songs"
       />
+
       <BackButton style={{ marginLeft: '-10em' }} />
+      <h2 style={{ marginLeft: '25em', marginTop: '-2rem' }}>
+        {timeRangeText} -- Top Artists
+      </h2>
 
       {artist.length === 0 ? (
         <>
@@ -160,7 +167,8 @@ export default function TopArtists() {
             style={style}
           />
 
-          <div style={style.container}>
+          {/* <div style={style.container}> */}
+          <StyledArtistGrid>
             {artist
               .map((data, i) => {
                 return (
@@ -200,7 +208,7 @@ export default function TopArtists() {
                 );
               })
               .slice(0, 30)}
-          </div>
+          </StyledArtistGrid>
         </>
       )}
 
@@ -213,3 +221,35 @@ export default function TopArtists() {
     </div>
   );
 }
+
+const StyledArtistGrid = Styled.div`
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(170px, 2fr));
+grid-gap: 0rem;
+grid-auto-rows: minmax(100px, auto);
+justify-content: center;
+align-items: center;
+margin: 2vw;
+text-align: center;
+padding: 0rem; 
+
+h4{
+  font-size: 1.2rem;
+}
+img:hover {
+  transform: scale(1.5);
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 0 3px 0 ghostwhite;
+  object-fit: cover;
+ 
+  @media (max-width: 768px) {
+    transform: scale(1.2);
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 3px 0 ghostwhite;
+    object-fit: cover;
+    h4{
+      font-size: 0.8rem;
+    }
+  }
+}
+`;

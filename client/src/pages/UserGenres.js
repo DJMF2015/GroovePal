@@ -21,7 +21,7 @@ const PlayList = (props) => {
   const [tracks, setTracks] = useState([]);
   const access_token = spotifyApi.getAccessToken();
   const { genre, timeRanges, topArtists } = useTopArtists(timeRange);
-  // const { topTracks } = useTopTracks(timeRange);
+  const { topTracks } = useTopTracks();
   Shuffle(playlist); // shuffle the order of playlists based on the genre
   // Shuffle(tracks); // shuffle the order of tracks based on the genre
   const searchArtists = async (e) => {
@@ -120,7 +120,6 @@ const PlayList = (props) => {
                 .slice(0, 5)}{' '}
             {/* <h3>Top 5 Tracks </h3>
             {topTracks &&
-              topTracks.length > 0 &&
               topTracks
                 .map((track, i) => (
                   <div key={i}>
@@ -137,6 +136,7 @@ const PlayList = (props) => {
           genre={genre}
           renderGenre={renderGenre}
           searchArtists={searchArtists}
+          timeRangeText={timeRangeText}
         />
         {genre.length === 0 ? (
           <h2 style={{ fontSize: '28px', marginTop: '-30px' }}>

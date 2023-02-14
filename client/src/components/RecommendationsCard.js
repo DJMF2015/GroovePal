@@ -8,10 +8,11 @@ const style = {
     justifyContent: 'left',
     alignItems: 'left',
     textAlign: 'left',
-    margin: '3em 10em 3em 12em',
-    padding: '2em 0em 2em 0em',
+    margin: '3em 2em 2em 2em',
+    padding: '2em 1em 2em 2em',
     border: '2px solid red',
-    borderRadius: '3rem',
+    borderRadius: '2rem',
+    lineHeight: '4rem',
   },
 };
 const RecommendationsCard = (props) => {
@@ -32,8 +33,6 @@ const RecommendationsCard = (props) => {
             <CreatePlaylistButton onClick={createTopTracksPlaylist} />
           </div>
           <div style={style.rangeButtons}>
-            <label style={{ margin: '2em' }}>Popularity </label>
-
             <input
               type="range"
               name="popularity"
@@ -41,8 +40,8 @@ const RecommendationsCard = (props) => {
               max="100"
               onChange={props.handleInputChange}
             />
+            <label style={{ margin: '2em' }}>Popularity </label>
 
-            <label style={{ margin: '2em' }}>Instrumentalness</label>
             <input
               type="range"
               min="0"
@@ -51,7 +50,8 @@ const RecommendationsCard = (props) => {
               step="0.01"
               onChange={props.handleInputChange}
             />
-            <label style={{ margin: '2em' }}>Energy</label>
+            <label style={{ margin: '2em' }}>Instrumentalness</label>
+
             <input
               type="range"
               min="0"
@@ -60,7 +60,8 @@ const RecommendationsCard = (props) => {
               step="0.01"
               onChange={props.handleInputChange}
             />
-            <label style={{ margin: '2em' }}>Danceability</label>
+            <label style={{ margin: '2em' }}>Energy</label>
+
             <input
               type="range"
               min="0"
@@ -69,8 +70,8 @@ const RecommendationsCard = (props) => {
               step="0.01"
               onChange={props.handleInputChange}
             />
+            <label style={{ margin: '2em' }}>Danceability</label>
 
-            <label style={{ margin: '2em' }}>Valence</label>
             <input
               type="range"
               min="0"
@@ -79,7 +80,8 @@ const RecommendationsCard = (props) => {
               step="0.01"
               onChange={props.handleInputChange}
             />
-            <label style={{ margin: '2em' }}>Tempo</label>
+            <label style={{ margin: '2em' }}>Valence</label>
+
             <input
               type="range"
               min="0"
@@ -88,6 +90,17 @@ const RecommendationsCard = (props) => {
               step="1"
               onChange={props.handleInputChange}
             />
+            <label style={{ margin: '2em' }}>Tempo</label>
+
+            <input
+              type="range"
+              min="0"
+              name="speechiness"
+              max="0.9"
+              step="0.01"
+              onChange={props.handleInputChange}
+            />
+            <label style={{ margin: '2em' }}>Speechiness</label>
           </div>
         </>
       )}

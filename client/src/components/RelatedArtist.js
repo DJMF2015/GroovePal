@@ -3,9 +3,8 @@ import React, { useState, useEffect } from 'react';
 const styles = {
   container: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(5, 1fr)',
+    gridTemplateColumns: 'repeat(6, 1fr)',
     gridGap: '.5rem',
-    gridAutoRows: 'minmax(100px, auto)',
     justifyContent: 'center',
     alignItems: 'center',
     margin: '2vw',
@@ -13,6 +12,7 @@ const styles = {
     padding: '0rem',
     borderRadius: '1rem',
     border: '1px solid white',
+    boxShadow: '4px 1px 10px 0 red',
   },
 };
 const RelatedArtist = (props) => {
@@ -54,8 +54,7 @@ const RelatedArtist = (props) => {
           style={{
             border: '1px solid white',
             borderRadius: '1rem',
-            margin: '0 auto',
-            justifyContent: 'center',
+            justifyContent: 'right',
           }}
           src={props?.artist.images[2].url}
           alt="artist profile"

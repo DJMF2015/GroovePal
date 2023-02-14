@@ -16,7 +16,7 @@ export default function GenreFilterButton(props) {
         seeAllStarred="/starred"
         seeStarredTracks="Starred Tracks"
       />
-
+      <h1 style={{ marginTop: '-1.75em' }}>{props.timeRangeText} -- User Genres</h1>
       {props.genre
         .map((option, index) => (
           <>
@@ -25,7 +25,6 @@ export default function GenreFilterButton(props) {
               style={{
                 display: 'inline',
                 margin: '10px',
-                justifyContent: 'center',
                 padding: '10px',
                 fontSize: '18px',
                 backgroundColor: 'black',
@@ -38,6 +37,7 @@ export default function GenreFilterButton(props) {
                 style={{
                   padding: '10px',
                   color: 'white',
+                  justifyContent: 'center',
                   fontSize: '16px',
                   width: '200px',
                   margin: '8px',

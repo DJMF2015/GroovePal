@@ -71,9 +71,9 @@ export default function Likedtracks() {
         seeAllTracks="/tracks"
         titleTracks="Top Tracks"
         seeAllPlaylists="/playlists"
-        titlePlaylists="Top Playlists"
+        titlePlaylists="Playlists"
         seeAllStarred="/starred"
-        seeStarredTracks="Starred Tracks"
+        seeStarredTracks="Liked Songs"
       />
       <h2>Tracks: {likedtracks.length}</h2>
       {likedtracks &&
@@ -83,18 +83,6 @@ export default function Likedtracks() {
               <h3 style={{ margin: '0 auto', marginTop: '1rem', textAlign: 'center' }}>
                 {track.track.name}
               </h3>
-              <img
-                src={track.track.album.images[0].url}
-                alt="album art"
-                style={{
-                  width: '10%',
-                  margin: '0  auto',
-                  display: 'block',
-                  marginTop: '1rem',
-                  borderRadius: '50%',
-                  border: '2px solid white',
-                }}
-              />
             </>
 
             <Spotify

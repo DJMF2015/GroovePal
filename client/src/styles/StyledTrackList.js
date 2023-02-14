@@ -16,7 +16,7 @@ const StyledTrackList = styled.ul`
     transition: background-color 0.3s ease;
     cursor: default;
     @media (min-width: 768px) {
-      grid-template-columns: 0px 4fr 2fr minmax(0px, 1fr);
+      grid-template-columns: 4em 2fr 1fr minmax(0px, 1fr);
       padding: var(--spacing-xs) var(--spacing-sm);
     }
     &:hover,

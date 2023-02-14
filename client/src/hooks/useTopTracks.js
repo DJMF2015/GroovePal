@@ -4,13 +4,13 @@ const spotifyApi = new SpotifyWebApi();
 const accessToken = spotifyApi.getAccessToken();
 //fetch user top tracks from spotify api
 
-const useTopTracks = (timeRange) => {
+const useTopTracks = () => {
   const [topTracks, setTopTracks] = useState([]);
   useEffect(() => {
     const getTopTracks = async () => {
       /* Get a User’s Top Tracks*/
       const resp = await fetch(
-        `https://api.spotify.com/v1/me/top/tracks?limit=50&offset=0&time_range=${timeRange}`,
+        `https://api.spotify.com/v1/me/top/tracks?limit=50&offset=0&time_range=long_term`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -25,7 +25,7 @@ const useTopTracks = (timeRange) => {
       setTopTracks(data.items);
     };
     getTopTracks();
-  }, [timeRange]);
+  }, [topTracks]);
 
   return { topTracks, accessToken };
 };

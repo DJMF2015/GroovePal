@@ -73,10 +73,14 @@ const TracksButton = ({ setTracks, createTopTracksPlaylist }) => {
           seeAllTracks="/tracks"
           titleTracks="Top Tracks"
           seeAllPlaylists="/playlists"
-          titlePlaylists="Top Playlists"
+          titlePlaylists="Playlists"
           seeAllStarred="/starred"
-          seeStarredTracks="Starred Tracks"
+          seeStarredTracks="Liked Songs"
         >
+          <h1 style={{ marginLeft: '25em', marginTop: '-3rem' }}>
+            {timeRangeText} -- Top Tracks
+          </h1>
+          <br></br>
           <TrackList tracks={tracks} />
         </SectionWrapper>
       </main>
