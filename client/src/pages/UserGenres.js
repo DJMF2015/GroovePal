@@ -118,15 +118,6 @@ const PlayList = (props) => {
                   );
                 })
                 .slice(0, 5)}{' '}
-            {/* <h3>Top 5 Tracks </h3>
-            {topTracks &&
-              topTracks
-                .map((track, i) => (
-                  <div key={i}>
-                    <p>{i + 1 + ' ' + track.name.slice(0, 30).concat('...')}</p>
-                  </div>
-                ))
-                .slice(0, 5)} */}
           </div>
         </StyledHeader>
 
