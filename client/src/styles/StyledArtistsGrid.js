@@ -29,6 +29,37 @@ const StyledArtistGrid = styled.div`
     border-radius: 1px;
   }
 
+  .artist_tag {
+    color: white;
+    font-size: 1.5rem;
+  }
+  .artist_image {
+    margin: 2px auto;
+    border-radius: 75%;
+    display: flex;
+    width: 10%;
+    height: 50%;
+  }
+  .artist_link {
+    color: black;
+    text-decoration: none;
+    margin: 0px;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    background-color: ghostwhite;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    width: 50%;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    padding: 0rem;
+    align-items: center;
+    color: red;
+  }
   h4 {
     font-size: 1.2rem;
   }
