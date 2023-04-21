@@ -20,6 +20,7 @@
     "local-storage": "^2.0.0",
     "nodemon": "^2.0.20",
     "querystring": "~0.2.0",
+    "react-scripts": "^5.0.1",
     "request": "~2.83.0"
   },
   "devDependencies": {
