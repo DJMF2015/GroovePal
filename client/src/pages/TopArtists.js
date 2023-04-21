@@ -3,42 +3,12 @@ import React, { useEffect, useState } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
 import TimeRangeButton from '../components/TimeRangeButton';
 import useToggleTimeRange from '../hooks/useTimeRange';
-import Styled from 'styled-components';
+import StyledArtistGrid from '../styles/StyledArtistsGrid';
 import { SectionWrapper } from '../components';
 import BackButton from '../components/BackButton';
 import { Link } from 'react-router-dom';
 import RecommendationsCard from '../components/RecommendationsCard';
 const spotifyApi = new SpotifyWebApi();
-
-const style = {
-  // container: {
-  //   display: 'grid',
-  //   gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 2fr))',
-  //   gridGap: '0rem',
-  //   gridAutoRows: 'minmax(100px, auto)',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   margin: '2vw',
-  //   textAlign: 'center',
-  //   padding: '0rem',
-  // },
-
-  imgTile: {
-    textAlign: 'left',
-    alignItems: 'left',
-    maxWidth: '100px',
-    minWidth: '100px',
-    marginTop: '-6rem',
-    listStyle: 'none',
-    margin: '20px 10px auto',
-    padding: '0rem',
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 2fr))',
-    objectFit: 'contain',
-    justifyContent: 'center',
-    border: '1px solid #eaeaea',
-  },
-};
 
 const initialState = {
   popularity: 45,
@@ -161,13 +131,8 @@ export default function TopArtists() {
         </>
       ) : (
         <>
-          <TimeRangeButton
-            onClick={toggleTimeRange}
-            timeRangeText={timeRangeText}
-            style={style}
-          />
+          <TimeRangeButton onClick={toggleTimeRange} timeRangeText={timeRangeText} />
 
-          {/* <div style={style.container}> */}
           <StyledArtistGrid>
             {artist
               .map((data, i) => {
@@ -199,7 +164,7 @@ export default function TopArtists() {
                         {i + 1} {data.name} {''}
                       </h4>
                       <img
-                        style={style.imgTile}
+                        className="image-tile"
                         src={data.images[2].url}
                         alt={data.name}
                       />
@@ -221,35 +186,3 @@ export default function TopArtists() {
     </div>
   );
 }
-
-const StyledArtistGrid = Styled.div`
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(170px, 2fr));
-grid-gap: 0rem;
-grid-auto-rows: minmax(100px, auto);
-justify-content: center;
-align-items: center;
-margin: 2vw;
-text-align: center;
-padding: 0rem; 
-
-h4{
-  font-size: 1.2rem;
-}
-img:hover {
-  transform: scale(1.5);
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 0 3px 0 ghostwhite;
-  object-fit: cover;
- 
-  @media (max-width: 768px) {
-    transform: scale(1.2);
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 0 3px 0 ghostwhite;
-    object-fit: cover;
-    h4{
-      font-size: 0.8rem;
-    }
-  }
-}
-`;
