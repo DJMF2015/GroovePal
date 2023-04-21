@@ -11,7 +11,7 @@ const StyledSection = styled.section`
     width: 100%;
     float: left;
     display: inline;
-    /* max-width: var(--site-max-width); */
+    max-width: var(--site-max-width);
     margin: 10px auto;
     position: relative;
     padding: var(--spacing-lg) var(--spacing-md);
@@ -24,7 +24,7 @@ const StyledSection = styled.section`
     display: flex;
     justify-content: space-between;
     align-items: stretch;
-    /* margin-bottom: var(--spacing-xl); */
+    margin-bottom: var(--spacing-xl);
   }
   .section__heading {
     display: flex;
