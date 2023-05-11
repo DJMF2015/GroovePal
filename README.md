@@ -28,11 +28,8 @@ Clone the repository and install its dependencies running:
   <img src="tracks.jpg"  title="track">
 </p>
 
-##### TO-DO
- - remove axios as a dependency and replace with fetch
- - remove spotify-web-api-js package and replace with spotify api http endpoints
- - Modify authorization workflow to use PKCE
- - add rate limiting to server
+##### TO-DO 
+ - Modify authorization workflow to use PKCE 
  - Clean-up styling and refactor inline and css-in-jsx to styled components
 
  
