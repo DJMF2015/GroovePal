@@ -27,10 +27,6 @@ Clone the repository and install its dependencies running:
 
   <img src="tracks.jpg"  title="track">
 </p>
-
-##### TO-DO 
- - Modify authorization workflow to use PKCE 
- - Clean-up styling and refactor inline and css-in-jsx to styled components
-
+ 
  
  
