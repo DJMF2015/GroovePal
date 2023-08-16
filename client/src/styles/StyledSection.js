@@ -11,7 +11,6 @@ const StyledSection = styled.section`
     width: 100%;
     float: left;
     display: inline;
-    max-width: var(--site-max-width);
     margin: 10px auto;
     position: relative;
     padding: var(--spacing-lg) var(--spacing-md);
@@ -24,7 +23,6 @@ const StyledSection = styled.section`
     display: flex;
     justify-content: space-between;
     align-items: stretch;
-    margin-bottom: var(--spacing-xl);
   }
   .section__heading {
     display: flex;
@@ -47,8 +45,6 @@ const StyledSection = styled.section`
     }
   }
   .section__see-all {
-    /* display: flex;
-    align-items: flex-end; */
     text-transform: uppercase;
     color: var(--light-grey);
     font-size: var(--fz-xxs);

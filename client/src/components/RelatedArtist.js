@@ -1,20 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import StyledRelatedArtists from '../styles/RelatedArtistsStyles';
 
-const styles = {
-  container: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(6, 1fr)',
-    gridGap: '.5rem',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: '2vw',
-    textAlign: 'center',
-    padding: '0rem',
-    borderRadius: '1rem',
-    border: '1px solid white',
-    boxShadow: '4px 1px 10px 0 red',
-  },
-};
 const RelatedArtist = (props) => {
   const genres = props?.artist.genres.map((genre, i) => {
     const formattedGenre = genre.charAt(0).toUpperCase() + genre.slice(1);
@@ -26,7 +11,7 @@ const RelatedArtist = (props) => {
   });
   return (
     <>
-      <div style={styles.container}>
+      <StyledRelatedArtists>
         <p>
           {' '}
           <h4>Artist</h4>
@@ -59,7 +44,7 @@ const RelatedArtist = (props) => {
           src={props?.artist.images[2].url}
           alt="artist profile"
         />
-      </div>
+      </StyledRelatedArtists>
     </>
   );
 };
